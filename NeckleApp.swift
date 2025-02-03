@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct NeckleApp: App {
@@ -8,6 +9,7 @@ struct NeckleApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .modelContainer(for: UserModel.self)
                 .environment(bluetoothConnectionManager)
                 .environment(speechManager)
         }
