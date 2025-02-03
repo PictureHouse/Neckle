@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(MainViewModel.self) private var mainViewModel
+    
     @State private var showInfo = false
     @State private var mainButtonState: MainButtonState = .disabled
     
@@ -38,6 +40,12 @@ struct MainView: View {
         }
         .padding(16)
         .background(.black.opacity(0.95))
+        .onAppear(perform: {
+            mainButtonState = mainViewModel.isBluetoothConnected ? .play : .disabled
+        })
+        .onChange(of: mainViewModel.isBluetoothConnected) {
+            mainButtonState = mainViewModel.isBluetoothConnected ? .play : .disabled
+        }
         .sheet(isPresented: $showInfo) {
             InfoView()
         }

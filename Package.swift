@@ -16,6 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "Neckle",
             targets: ["AppModule"],
+            bundleIdentifier: "io.github.picturehouse.Neckle",
             teamIdentifier: "WAC2RPX5HC",
             displayVersion: "1.0.0",
             bundleVersion: "1",
