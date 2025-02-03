@@ -3,7 +3,7 @@ import AVFoundation
 import Combine
 
 @Observable
-class MainViewModel {
+class BluetoothConnectionManager {
     var isBluetoothConnected: Bool = false
     private var cancellables: Set<AnyCancellable> = []
     
