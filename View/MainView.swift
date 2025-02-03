@@ -65,6 +65,8 @@ extension MainView {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(.teal)
             }
+            .tint(.teal)
+            .navigationTitle("")
         }
     }
 }
