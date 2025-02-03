@@ -8,14 +8,15 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "MyNeck",
+    name: "Neckle",
     platforms: [
         .iOS("17.0")
     ],
     products: [
         .iOSApplication(
-            name: "MyNeck",
+            name: "Neckle",
             targets: ["AppModule"],
+            teamIdentifier: "WAC2RPX5HC",
             displayVersion: "1.0.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .smiley),
