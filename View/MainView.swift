@@ -3,6 +3,7 @@ import SwiftUI
 struct MainView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
+    @Environment(SpeechManager.self) private var speechManager
     
     @State private var showInfo = false
     @State private var mainButtonState: MainButtonState = .disabled
@@ -14,7 +15,14 @@ struct MainView: View {
                 
                 Spacer()
                 
-                ProcessCircleView()
+//                ProcessCircleView()
+                
+                Button {
+                    speechManager.speak(text: "Hello, \(userSettingsManager.userName)! My nave is \(userSettingsManager.voice.rawValue)!", voice: userSettingsManager.voice)
+                } label: {
+                    Image(systemName: "headphones")
+                        .foregroundStyle(.teal)
+                }
                 
                 Spacer()
                 
@@ -77,4 +85,5 @@ extension MainView {
     MainView()
         .environment(UserSettingsManager())
         .environment(BluetoothConnectionManager())
+        .environment(SpeechManager())
 }

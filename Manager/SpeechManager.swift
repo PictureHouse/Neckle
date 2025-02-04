@@ -5,9 +5,13 @@ import AVFoundation
 final class SpeechManager {
     private let synthesizer = AVSpeechSynthesizer()
     
-    func speak(text: String) {
+    func speak(text: String, voice: Voice) {
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        if let voice = AVSpeechSynthesisVoice(identifier: voice.description) {
+            utterance.voice = voice
+        } else {
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        }
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
         utterance.pitchMultiplier = 1.0
         utterance.volume = 1.0

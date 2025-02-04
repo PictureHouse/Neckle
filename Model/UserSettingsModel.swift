@@ -16,13 +16,29 @@ final class UserSettingsModel {
     }
 }
 
-enum Voice: String, CaseIterable, Identifiable {
+enum Voice: String, CustomStringConvertible, CaseIterable, Identifiable {
     case Aaron
+    case Daniel
     case Fred
     case Nicky
     case Samantha
     
     var id: Self { self }
+    
+    var description: String {
+        switch self {
+        case .Aaron:
+            return "com.apple.ttsbundle.siri_male_en-US_compact"
+        case .Daniel:
+            return "com.apple.ttsbundle.Daniel-compact"
+        case .Fred:
+            return "com.apple.speech.synthesis.voice.Fred"
+        case .Nicky:
+            return "com.apple.ttsbundle.siri_female_en-US_compact"
+        case .Samantha:
+            return "com.apple.ttsbundle.Samantha-compact"
+        }
+    }
 }
 
 enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
