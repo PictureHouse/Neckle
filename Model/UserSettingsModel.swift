@@ -28,8 +28,8 @@ enum Voice: String, CaseIterable, Identifiable {
 enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
     case AirPods
     case AirPods3
-    case AirPodsPro
-    case AirPodsMax
+    case AirPodsPro = "AirPods Pro"
+    case AirPodsMax = "AirPods Max"
     case Headphones
     
     var id: Self { self }

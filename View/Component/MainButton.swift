@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainButton: View {
     let state: MainButtonState
+    let type: AudioDevice
     let action: () -> Void
     
     var body: some View {
@@ -14,7 +15,7 @@ struct MainButton: View {
                     .foregroundStyle(state != .disabled ? .teal : .gray)
                     .overlay {
                         if state == .disabled {
-                            Image(systemName: "airpods.pro")
+                            Image(systemName: type.description)
                                 .font(.system(size: 32))
                                 .foregroundStyle(.white)
                         } else {
@@ -27,7 +28,7 @@ struct MainButton: View {
             .disabled(state == .disabled)
             .padding(8)
             
-            Text(state.description)
+            Text(state == .disabled ? state.description + type.rawValue : state.description)
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.5))
         }
@@ -46,11 +47,11 @@ enum MainButtonState: String, CustomStringConvertible {
         case .stop:
             return "Tap to stop stretching"
         case .disabled:
-            return "Please wear your AirPods"
+            return "Please wear your "
         }
     }
 }
 
 #Preview {
-    MainButton(state: .play, action: { })
+    MainButton(state: .play, type: .AirPods, action: { })
 }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
     
     @State private var showInfo = false
@@ -19,6 +20,7 @@ struct MainView: View {
                 
                 MainButton(
                     state: mainButtonState,
+                    type: userSettingsManager.audioDevice,
                     action: {
                         if mainButtonState == .play {
                             mainButtonState = .stop
@@ -73,5 +75,6 @@ extension MainView {
 
 #Preview {
     MainView()
+        .environment(UserSettingsManager())
         .environment(BluetoothConnectionManager())
 }
