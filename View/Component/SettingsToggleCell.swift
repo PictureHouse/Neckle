@@ -2,30 +2,26 @@ import SwiftUI
 
 struct SettingsToggleCell: View {
     let title: String
-    let image: String
     @Binding var status: Bool
     
     var body: some View {
         VStack {
-            HStack {
-                Label(title, systemImage: image)
+            Toggle(isOn: $status) {
+                Text(title)
                     .bold()
-                
-                Spacer()
-                
-                Toggle(isOn: $status) { }
-                    .tint(.teal)
             }
+            .tint(.teal)
+            .padding(.bottom, 8)
             
             Divider()
         }
+        .padding(.vertical, 8)
     }
 }
 
 #Preview {
     SettingsToggleCell(
         title: "Title",
-        image: "person.fill",
         status: .constant(true)
     )
 }
