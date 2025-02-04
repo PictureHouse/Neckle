@@ -7,19 +7,23 @@ final class UserSettingsModel {
     @AppStorage("hapticFeedback") var hapticFeedback: Bool = true
 }
 
-enum Voice: String {
+enum Voice: String, CaseIterable, Identifiable {
     case Aaron
     case Fred
     case Nicky
     case Samantha
+    
+    var id: Self { self }
 }
 
-enum AudioDevice: String, CustomStringConvertible {
+enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
     case AirPods
     case AirPods3
     case AirPodsPro
     case AirPodsMax
     case Headphones
+    
+    var id: Self { self }
     
     var description: String {
         switch self {
