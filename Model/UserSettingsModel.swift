@@ -1,18 +1,10 @@
-import SwiftData
+import SwiftUI
 
-@Model
-final class UserModel {
-    var userName: String
-    var voice: String
-    var audioDevice: String
-    var hapticFeedback: Bool
-    
-    init(userName: String, voice: Voice, audioDevice: AudioDevice, hapticFeedback: Bool) {
-        self.userName = userName
-        self.voice = voice.rawValue
-        self.audioDevice = audioDevice.rawValue
-        self.hapticFeedback = hapticFeedback
-    }
+final class UserSettingsModel {
+    @AppStorage("userName") var userName: String = ""
+    @AppStorage("voice") var voice: Voice = .Aaron
+    @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
+    @AppStorage("hapticFeedback") var hapticFeedback: Bool = true
 }
 
 enum Voice: String {
