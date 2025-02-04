@@ -12,11 +12,12 @@ struct SettingsMenuCell<T: CaseIterable & Identifiable & RawRepresentable & Hash
                 
                 Spacer()
                 
-                Picker(selection.rawValue, selection: $selection) {
+                Picker(title, selection: $selection) {
                     ForEach(Array(T.allCases), id: \.self) { enumCase in
                         Text(enumCase.rawValue).tag(enumCase)
                     }
                 }
+                .pickerStyle(.menu)
             }
             .padding(.bottom, 8)
             

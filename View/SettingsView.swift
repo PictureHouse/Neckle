@@ -3,6 +3,11 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     
+    @State private var userName: String = ""
+    @State private var voice: Voice = .Aaron
+    @State private var audioDevice: AudioDevice = .AirPods
+    @State private var hapticFeedback: Bool = true
+    
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     
     var body: some View {
@@ -10,22 +15,22 @@ struct SettingsView: View {
             SettingsTextFieldCell(
                 title: "User Name",
                 placeholder: "Enter your name",
-                text: userSettingsManager.userSettings.$userName
+                text: $userName
             )
             
             SettingsMenuCell(
                 title: "Voice",
-                selection: userSettingsManager.userSettings.$voice
+                selection: $voice
             )
             
             SettingsMenuCell(
                 title: "Audio Device",
-                selection: userSettingsManager.userSettings.$audioDevice
+                selection: $audioDevice
             )
             
             SettingsToggleCell(
                 title: "Haptic Feedback",
-                status: userSettingsManager.userSettings.$hapticFeedback
+                status: $hapticFeedback
             )
             
             Spacer()
@@ -44,6 +49,15 @@ struct SettingsView: View {
                     .bold()
                     .foregroundStyle(.teal)
             }
+        }
+        .onAppear {
+            userName = userSettingsManager.userName
+            voice = userSettingsManager.voice
+            audioDevice = userSettingsManager.audioDevice
+            hapticFeedback = userSettingsManager.hapticFeedback
+        }
+        .onDisappear {
+            userSettingsManager.updateUserSettings(UserSettingsModel(userName: userName, voice: voice, audioDevice: audioDevice, hapticFeedback: hapticFeedback))
         }
     }
 }

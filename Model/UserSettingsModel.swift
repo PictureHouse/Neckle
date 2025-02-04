@@ -5,6 +5,15 @@ final class UserSettingsModel {
     @AppStorage("voice") var voice: Voice = .Aaron
     @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
     @AppStorage("hapticFeedback") var hapticFeedback: Bool = true
+    
+    init() { }
+    
+    init(userName: String, voice: Voice, audioDevice: AudioDevice, hapticFeedback: Bool) {
+        self.userName = userName
+        self.voice = voice
+        self.audioDevice = audioDevice
+        self.hapticFeedback = hapticFeedback
+    }
 }
 
 enum Voice: String, CaseIterable, Identifiable {
