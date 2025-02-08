@@ -3,9 +3,7 @@ import SwiftUI
 struct MainView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
-    @Environment(SpeechManager.self) private var speechManager
     
-    @State private var showInfo = false
     @State private var mainButtonState: MainButtonState = .disabled
     
     var body: some View {
@@ -15,14 +13,7 @@ struct MainView: View {
                 
                 Spacer()
                 
-//                ProcessCircleView()
-                
-                Button {
-                    speechManager.speak(text: "Hello, \(userSettingsManager.userName)! My nave is \(userSettingsManager.voice.rawValue)!", voice: userSettingsManager.voice)
-                } label: {
-                    Image(systemName: "headphones")
-                        .foregroundStyle(.teal)
-                }
+                contents
                 
                 Spacer()
                 
@@ -46,26 +37,14 @@ struct MainView: View {
             .onChange(of: bluetoothConnectionManager.isBluetoothConnected) {
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
             }
-            .sheet(isPresented: $showInfo) {
-                InfoView()
-            }
         }
     }
 }
 
-extension MainView {
-    private var header: some View {
+private extension MainView {
+    var header: some View {
         HStack(spacing: 16) {
             Spacer()
-            
-            Button {
-                showInfo = true
-            } label: {
-                Image(systemName: "info.circle")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(.teal)
-            }
             
             NavigationLink {
                 SettingsView()
@@ -79,11 +58,20 @@ extension MainView {
             .navigationTitle("")
         }
     }
+    
+    @ViewBuilder
+    var contents: some View {
+        switch mainButtonState {
+        case .disabled, .play:
+            InfoView()
+        case .stop:
+            ProcessCircleView()
+        }
+    }
 }
 
 #Preview {
     MainView()
         .environment(UserSettingsManager())
         .environment(BluetoothConnectionManager())
-        .environment(SpeechManager())
 }
