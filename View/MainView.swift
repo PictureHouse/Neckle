@@ -65,7 +65,7 @@ private extension MainView {
         case .disabled, .play:
             InfoView()
         case .stop:
-            ProcessCircleView()
+            ProcessView()
         }
     }
 }
