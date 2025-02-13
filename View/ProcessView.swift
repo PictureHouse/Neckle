@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProcessView: View {
     @Environment(SpeechManager.self) private var speechManager
+    @Environment(FaceAngleManager.self) private var faceAngleManager
     
     @State private var currentStep: Steps = .step1
     @State private var circleStroke: Double = 10
@@ -14,6 +15,8 @@ struct ProcessView: View {
                     withAnimation(.linear.repeatForever(autoreverses: true).speed(0.4)) {
                         circleStroke = 20
                     }
+                    
+                    faceAngleManager.startUpdates()
                 }
         case .step2:
             Step2CircleView(currentStep: $currentStep, circleStroke: $circleStroke)
@@ -21,6 +24,9 @@ struct ProcessView: View {
                     withAnimation(.linear.repeatForever(autoreverses: true).speed(0.4)) {
                         circleStroke = 20
                     }
+                }
+                .onDisappear {
+                    faceAngleManager.stopUpdates()
                 }
         }
     }
@@ -43,4 +49,5 @@ enum Steps: String, CustomStringConvertible {
 #Preview {
     ProcessView()
         .environment(SpeechManager())
+        .environment(FaceAngleManager())
 }
