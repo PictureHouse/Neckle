@@ -46,7 +46,6 @@ enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
     case AirPods3
     case AirPodsPro = "AirPods Pro"
     case AirPodsMax = "AirPods Max"
-    case Headphones
     
     var id: Self { self }
     
@@ -60,8 +59,6 @@ enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
             return "airpods.pro"
         case .AirPodsMax:
             return "airpods.max"
-        case .Headphones:
-            return "headphones"
         }
     }
 }
