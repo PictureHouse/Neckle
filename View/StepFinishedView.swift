@@ -29,6 +29,7 @@ struct StepFinishedView : View {
                 }
             }
             .onTapGesture {
+                speechManager.stop()
                 mainButtonState = .play
             }
     }

@@ -1,30 +1,34 @@
 import SwiftUI
-import AVFoundation
-import Combine
+import Observation
+import CoreMotion
 
 @Observable
-final class BluetoothConnectionManager {
+final class BluetoothConnectionManager: NSObject, CMHeadphoneMotionManagerDelegate {
+    private let motionManager = CMHeadphoneMotionManager()
     var isBluetoothConnected: Bool = false
-    private var cancellables: Set<AnyCancellable> = []
     
-    init() {
-        setupNotifications()
+    override init() {
+        super.init()
+        setupMotionManager()
     }
     
-    private func setupNotifications() {
-        NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)
-            .sink { [weak self] _ in
-                self?.checkAudioRoute()
-            }
-            .store(in: &cancellables)
+    private func setupMotionManager() {
+        motionManager.delegate = self
         
-        checkAudioRoute()
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
+                guard error == nil else { return }
+            }
+        }
     }
     
-    private func checkAudioRoute() {
-        let currentRoute = AVAudioSession.sharedInstance().currentRoute
-        isBluetoothConnected = currentRoute.outputs.contains {
-            $0.portType == .bluetoothA2DP || $0.portType == .bluetoothLE || $0.portType == .bluetoothHFP
-        }
+    func headphoneMotionManagerDidConnect(_ manager: CMHeadphoneMotionManager) {
+        isBluetoothConnected = true
+        print("AirPods Connected")
+    }
+    
+    func headphoneMotionManagerDidDisconnect(_ manager: CMHeadphoneMotionManager) {
+        isBluetoothConnected = false
+        print("AirPods Disconnected")
     }
 }

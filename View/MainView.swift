@@ -27,7 +27,6 @@ struct MainView: View {
                         if mainButtonState == .play {
                             mainButtonState = .stop
                         } else {
-                            speechManager.stop()
                             mainButtonState = .play
                         }
                     }
@@ -42,6 +41,7 @@ struct MainView: View {
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
             }
             .onChange(of: mainButtonState) {
+                speechManager.stop()
                 if userSettingsManager.hapticFeedback {
                     mainButtonHapticTrigger.toggle()
                 }
