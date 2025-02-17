@@ -70,7 +70,7 @@ struct Step2CircleView: View {
 private extension Step2CircleView {
     func step2Process() {
         if !isLeftCompleted {
-            if faceAngleManager.yaw > 0.7 {
+            if faceAngleManager.yaw > userSettingsManager.horizontalIntensity {
                 if leftTimer == nil {
                     leftTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if leftProgress < 1 {
@@ -90,7 +90,7 @@ private extension Step2CircleView {
                 leftTimer = nil
             }
         } else {
-            if faceAngleManager.yaw < -0.7 {
+            if faceAngleManager.yaw < -userSettingsManager.horizontalIntensity {
                 if rightTimer == nil {
                     rightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if rightProgress < 1 {

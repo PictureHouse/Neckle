@@ -4,14 +4,18 @@ final class UserSettingsModel {
     @AppStorage("userName") var userName: String = ""
     @AppStorage("voice") var voice: Voice = .Aaron
     @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
+    @AppStorage("vertical") var verticalIntensity: Double = 0.5
+    @AppStorage("horizontal") var horizontalIntensity: Double = 0.7
     @AppStorage("hapticFeedback") var hapticFeedback: Bool = true
     
     init() { }
     
-    init(userName: String, voice: Voice, audioDevice: AudioDevice, hapticFeedback: Bool) {
+    init(userName: String, voice: Voice, audioDevice: AudioDevice, verticalIntensity: Double, horizontalIntensity: Double, hapticFeedback: Bool) {
         self.userName = userName
         self.voice = voice
         self.audioDevice = audioDevice
+        self.verticalIntensity = verticalIntensity
+        self.horizontalIntensity = horizontalIntensity
         self.hapticFeedback = hapticFeedback
     }
 }

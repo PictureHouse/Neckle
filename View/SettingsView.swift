@@ -6,6 +6,8 @@ struct SettingsView: View {
     @State private var userName: String = ""
     @State private var voice: Voice = .Aaron
     @State private var audioDevice: AudioDevice = .AirPods
+    @State private var verticalIntensity: Double = 0.5
+    @State private var horizontalIntensity: Double = 0.7
     @State private var hapticFeedback: Bool = true
     
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
@@ -26,6 +28,20 @@ struct SettingsView: View {
             SettingsMenuCell(
                 title: "Audio Device",
                 selection: $audioDevice
+            )
+            
+            SettingsSliderCell(
+                title: "Vertical Intensity",
+                minValue: 0.3,
+                maxValue: 0.8,
+                status: $verticalIntensity
+            )
+            
+            SettingsSliderCell(
+                title: "Horizontal Intensitys",
+                minValue: 0.3,
+                maxValue: 0.8,
+                status: $horizontalIntensity
             )
             
             SettingsToggleCell(
@@ -54,10 +70,21 @@ struct SettingsView: View {
             userName = userSettingsManager.userName
             voice = userSettingsManager.voice
             audioDevice = userSettingsManager.audioDevice
+            verticalIntensity = userSettingsManager.verticalIntensity
+            horizontalIntensity = userSettingsManager.horizontalIntensity
             hapticFeedback = userSettingsManager.hapticFeedback
         }
         .onDisappear {
-            userSettingsManager.updateUserSettings(UserSettingsModel(userName: userName, voice: voice, audioDevice: audioDevice, hapticFeedback: hapticFeedback))
+            userSettingsManager.updateUserSettings(
+                UserSettingsModel(
+                    userName: userName,
+                    voice: voice,
+                    audioDevice: audioDevice,
+                    verticalIntensity: verticalIntensity,
+                    horizontalIntensity: horizontalIntensity,
+                    hapticFeedback: hapticFeedback
+                )
+            )
         }
     }
 }

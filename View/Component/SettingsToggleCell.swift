@@ -20,8 +20,10 @@ struct SettingsToggleCell: View {
 }
 
 #Preview {
+    @Previewable @State var status: Bool = true
+    
     SettingsToggleCell(
         title: "Title",
-        status: .constant(true)
+        status: $status
     )
 }

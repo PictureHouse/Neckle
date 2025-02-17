@@ -7,6 +7,8 @@ final class UserSettingsManager {
     var userName: String { userSettings.userName }
     var voice: Voice { userSettings.voice }
     var audioDevice: AudioDevice { userSettings.audioDevice }
+    var verticalIntensity: Double { userSettings.verticalIntensity }
+    var horizontalIntensity: Double { userSettings.horizontalIntensity }
     var hapticFeedback: Bool { userSettings.hapticFeedback }
     
     func updateUserSettings(_ newUserSettings: UserSettingsModel) {

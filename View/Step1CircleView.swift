@@ -70,7 +70,7 @@ struct Step1CircleView: View {
 private extension Step1CircleView {
     func step1Process() {
         if !isUpCompleted {
-            if faceAngleManager.pitch > 0.5 {
+            if faceAngleManager.pitch > userSettingsManager.verticalIntensity {
                 if upTimer == nil {
                     upTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if upProgress < 1 {
@@ -90,7 +90,7 @@ private extension Step1CircleView {
                 upTimer = nil
             }
         } else {
-            if faceAngleManager.pitch < -0.5 {
+            if faceAngleManager.pitch < -userSettingsManager.verticalIntensity {
                 if downTimer == nil {
                     downTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if downProgress < 1 {
