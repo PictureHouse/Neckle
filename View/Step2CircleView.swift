@@ -13,6 +13,7 @@ struct Step2CircleView: View {
     @State private var leftTimer: Timer? = nil
     @State private var rightTimer: Timer? = nil
     @State private var isLeftCompleted: Bool = false
+    @State private var successTrigger: Bool = false
     
     private let circleStroke: CGFloat = 20
     private let duration: TimeInterval = 3
@@ -64,6 +65,9 @@ struct Step2CircleView: View {
         .onReceive(timer) { _ in
             step2Process()
         }
+        .sensoryFeedback(.success, trigger: successTrigger)
+        .sensoryFeedback(.increase, trigger: userSettingsManager.hapticFeedback ? leftProgress : nil)
+        .sensoryFeedback(.increase, trigger: userSettingsManager.hapticFeedback ? rightProgress : nil)
     }
 }
 
@@ -78,6 +82,10 @@ private extension Step2CircleView {
                                 leftProgress += 0.033
                             }
                         } else {
+                            if userSettingsManager.hapticFeedback {
+                                successTrigger.toggle()
+                            }
+                            speechManager.stop()
                             leftTimer?.invalidate()
                             leftTimer = nil
                             isLeftCompleted = true
@@ -98,6 +106,10 @@ private extension Step2CircleView {
                                 rightProgress += 0.033
                             }
                         } else {
+                            if userSettingsManager.hapticFeedback {
+                                successTrigger.toggle()
+                            }
+                            speechManager.stop()
                             rightTimer?.invalidate()
                             rightTimer = nil
                             currentStep = .finished

@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(UserSettingsManager.self) private var userSettingsManager
+    
     @State private var circleStroke: Double = 10
     @State private var scale: CGFloat = 0.8
     @State private var showInfoView: Bool = false
+    @State private var hapticTrigger: Bool = false
     
     var body: some View {
         Circle()
@@ -25,6 +28,10 @@ struct HomeView: View {
                     
                     Button {
                         showInfoView = true
+                        
+                        if userSettingsManager.hapticFeedback {
+                            hapticTrigger.toggle()
+                        }
                     } label: {
                         HStack(spacing: 4) {
                             Text("Keep your neck healthy with Neckle")
@@ -40,9 +47,11 @@ struct HomeView: View {
                 InfoView()
                     .presentationDragIndicator(.visible)
             }
+            .sensoryFeedback(.impact, trigger: hapticTrigger)
     }
 }
 
 #Preview {
     HomeView()
+        .environment(UserSettingsManager())
 }

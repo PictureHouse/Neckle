@@ -6,6 +6,7 @@ struct MainView: View {
     @Environment(SpeechManager.self) private var speechManager
     
     @State private var mainButtonState: MainButtonState = .disabled
+    @State private var mainButtonHapticTrigger: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -40,6 +41,12 @@ struct MainView: View {
             .onChange(of: bluetoothConnectionManager.isBluetoothConnected) {
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
             }
+            .onChange(of: mainButtonState) {
+                if userSettingsManager.hapticFeedback {
+                    mainButtonHapticTrigger.toggle()
+                }
+            }
+            .sensoryFeedback(.success, trigger: mainButtonHapticTrigger)
         }
     }
 }

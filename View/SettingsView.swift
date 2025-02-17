@@ -17,11 +17,13 @@ struct SettingsView: View {
                 title: "Voice",
                 selection: $voice
             )
+            .sensoryFeedback(.impact, trigger: hapticFeedback ? voice : nil)
             
             SettingsMenuCell(
                 title: "Audio Device",
                 selection: $audioDevice
             )
+            .sensoryFeedback(.impact, trigger: hapticFeedback ? audioDevice : nil)
             
             SettingsToggleCell(
                 title: "Haptic Feedback",
@@ -34,6 +36,7 @@ struct SettingsView: View {
                 maxValue: 0.8,
                 status: $verticalIntensity
             )
+            .sensoryFeedback(.increase, trigger: hapticFeedback ? verticalIntensity : nil)
             
             SettingsSliderCell(
                 title: "Horizontal Intensity",
@@ -41,6 +44,7 @@ struct SettingsView: View {
                 maxValue: 0.8,
                 status: $horizontalIntensity
             )
+            .sensoryFeedback(.increase, trigger: hapticFeedback ? horizontalIntensity : nil)
             
             Spacer()
             
