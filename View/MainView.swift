@@ -11,6 +11,7 @@ struct MainView: View {
         NavigationStack {
             VStack {
                 header
+                    .opacity(mainButtonState == .stop ? 0 : 1)
                 
                 Spacer()
                 
