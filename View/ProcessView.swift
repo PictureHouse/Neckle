@@ -1,33 +1,31 @@
 import SwiftUI
 
 struct ProcessView: View {
-    @Environment(SpeechManager.self) private var speechManager
-    @Environment(FaceAngleManager.self) private var faceAngleManager
+    @Binding var mainButtonState: MainButtonState
     
+    @State private var faceAngleManager = FaceAngleManager()
     @State private var currentStep: Steps = .step1
-    @State private var circleStroke: Double = 10
     
     var body: some View {
         switch currentStep {
         case .step1:
-            Step1CircleView(currentStep: $currentStep, circleStroke: $circleStroke)
-                .onAppear {
-                    withAnimation(.linear.repeatForever(autoreverses: true).speed(0.4)) {
-                        circleStroke = 20
-                    }
-                    
-                    faceAngleManager.startUpdates()
-                }
+            Step1CircleView(
+                faceAngleManager: faceAngleManager,
+                currentStep: $currentStep
+            )
+            .onAppear {
+                faceAngleManager.startUpdates()
+            }
         case .step2:
-            Step2CircleView(currentStep: $currentStep, circleStroke: $circleStroke)
-                .onAppear {
-                    withAnimation(.linear.repeatForever(autoreverses: true).speed(0.4)) {
-                        circleStroke = 20
-                    }
-                }
-                .onDisappear {
-                    faceAngleManager.stopUpdates()
-                }
+            Step2CircleView(
+                faceAngleManager: faceAngleManager,
+                currentStep: $currentStep
+            )
+            .onDisappear {
+                faceAngleManager.stopUpdates()
+            }
+        case .finished:
+            StepFinishedView(mainButtonState: $mainButtonState, currentStep: $currentStep)
         }
     }
 }
@@ -35,19 +33,18 @@ struct ProcessView: View {
 enum Steps: String, CustomStringConvertible {
     case step1 = "Step 1"
     case step2 = "Step 2"
+    case finished = "Finished!"
     
     var description: String {
         switch self {
-        case .step1:
-            return "Okay, Let's start."
-        case .step2:
-            return ""
+        case .step1, .step2:
+            return "Tap the circle to listen again"
+        case .finished:
+            return "Tap the circle to finish"
         }
     }
 }
 
 #Preview {
-    ProcessView()
-        .environment(SpeechManager())
-        .environment(FaceAngleManager())
+    ProcessView(mainButtonState: .constant(.stop))
 }

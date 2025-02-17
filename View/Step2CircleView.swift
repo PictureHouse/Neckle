@@ -1,11 +1,22 @@
 import SwiftUI
 
 struct Step2CircleView: View {
-    @Binding var currentStep: Steps
-    @Binding var circleStroke: Double
+    @Environment(UserSettingsManager.self) private var userSettingsManager
+    @Environment(SpeechManager.self) private var speechManager
     
+    @Bindable var faceAngleManager: FaceAngleManager
+    @Binding var currentStep: Steps
+    
+    @State private var currentScript: Step2Scripts = .leftGuide
     @State private var leftProgress: CGFloat = 0.0
     @State private var rightProgress: CGFloat = 0.0
+    @State private var leftTimer: Timer? = nil
+    @State private var rightTimer: Timer? = nil
+    @State private var isLeftCompleted: Bool = false
+    
+    private let circleStroke: CGFloat = 20
+    private let duration: TimeInterval = 3
+    private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         ZStack {
@@ -33,27 +44,86 @@ struct Step2CircleView: View {
                         .rotationEffect(.degrees(90))
                 )
             
-            Text(currentStep.rawValue)
-                .font(.system(size: 48, weight: .bold))
-                .foregroundStyle(.teal)
-            
-            VStack {
-                Spacer()
-                HStack {
-                    Slider(value: $leftProgress, in: 0...1)
-                    Slider(value: $rightProgress, in: 0...1)
-                }
-                .padding()
-            }
+            StepGuideCell(title: currentStep.rawValue, message: currentStep.description)
+        }
+        .onAppear {
+            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
         }
         .onChange(of: rightProgress) {
-            if leftProgress * rightProgress == 1 {
-                currentStep = .step1
+            if rightProgress == 1 {
+                currentStep = .finished
+            }
+        }
+        .onChange(of: currentScript) {
+            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
+        }
+        .onTapGesture {
+            speechManager.stop()
+            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
+        }
+        .onReceive(timer) { _ in
+            step2Process()
+        }
+    }
+}
+
+private extension Step2CircleView {
+    func step2Process() {
+        if !isLeftCompleted {
+            if faceAngleManager.yaw > 0.7 {
+                if leftTimer == nil {
+                    leftTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                        if leftProgress < 1 {
+                            withAnimation {
+                                leftProgress += 0.033
+                            }
+                        } else {
+                            leftTimer?.invalidate()
+                            leftTimer = nil
+                            isLeftCompleted = true
+                            currentScript = .rightGuide
+                        }
+                    }
+                }
+            } else {
+                leftTimer?.invalidate()
+                leftTimer = nil
+            }
+        } else {
+            if faceAngleManager.yaw < -0.7 {
+                if rightTimer == nil {
+                    rightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                        if rightProgress < 1 {
+                            withAnimation {
+                                rightProgress += 0.033
+                            }
+                        } else {
+                            rightTimer?.invalidate()
+                            rightTimer = nil
+                            currentStep = .finished
+                        }
+                    }
+                }
+            } else {
+                rightTimer?.invalidate()
+                rightTimer = nil
             }
         }
     }
 }
 
+private extension Step2CircleView {
+    enum Step2Scripts: String {
+        case leftGuide = "You have completed Step 1! Now move on to Step 2. Turn your head to the left and hold for 3 seconds."
+        case rightGuide = "Then turn your head to the right and hold for 3 seconds."
+    }
+}
+
 #Preview {
-    Step2CircleView(currentStep: .constant(Steps.step2), circleStroke: .constant(20))
+    Step2CircleView(
+        faceAngleManager: FaceAngleManager(),
+        currentStep: .constant(Steps.step2)
+    )
+    .environment(UserSettingsManager())
+    .environment(SpeechManager())
 }

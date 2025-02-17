@@ -3,6 +3,7 @@ import SwiftUI
 struct MainView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
+    @Environment(SpeechManager.self) private var speechManager
     
     @State private var mainButtonState: MainButtonState = .disabled
     
@@ -24,6 +25,7 @@ struct MainView: View {
                         if mainButtonState == .play {
                             mainButtonState = .stop
                         } else {
+                            speechManager.stop()
                             mainButtonState = .play
                         }
                     }
@@ -65,7 +67,7 @@ private extension MainView {
         case .disabled, .play:
             InfoView()
         case .stop:
-            ProcessView()
+            ProcessView(mainButtonState: $mainButtonState)
         }
     }
 }
@@ -74,4 +76,5 @@ private extension MainView {
     MainView()
         .environment(UserSettingsManager())
         .environment(BluetoothConnectionManager())
+        .environment(SpeechManager())
 }

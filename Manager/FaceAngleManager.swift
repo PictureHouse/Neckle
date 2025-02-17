@@ -8,7 +8,6 @@ final class FaceAngleManager {
     private var cancellables = Set<AnyCancellable>()
     
     var pitch: Double = 0.0
-    var roll: Double = 0.0
     var yaw: Double = 0.0
     
     init() {
@@ -33,7 +32,6 @@ final class FaceAngleManager {
     
     private func updateAngles(from motion: CMDeviceMotion) {
         pitch = motion.attitude.pitch
-        roll = motion.attitude.roll
         yaw = motion.attitude.yaw
     }
     

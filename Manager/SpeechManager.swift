@@ -12,7 +12,7 @@ final class SpeechManager {
         } else {
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         }
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        utterance.rate = 0.4
         utterance.pitchMultiplier = 1.0
         utterance.volume = 1.0
         
