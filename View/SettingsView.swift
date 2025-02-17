@@ -25,10 +25,12 @@ struct SettingsView: View {
             )
             .sensoryFeedback(.impact, trigger: hapticFeedback ? audioDevice : nil)
             
-            SettingsToggleCell(
-                title: "Haptic Feedback",
-                status: $hapticFeedback
-            )
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                SettingsToggleCell(
+                    title: "Haptic Feedback",
+                    status: $hapticFeedback
+                )
+            }
             
             SettingsSliderCell(
                 title: "Vertical Intensity",
