@@ -1,7 +1,6 @@
 import SwiftUI
 
 final class UserSettingsModel {
-    @AppStorage("userName") var userName: String = ""
     @AppStorage("voice") var voice: Voice = .Aaron
     @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
     @AppStorage("vertical") var verticalIntensity: Double = 0.5
@@ -10,8 +9,7 @@ final class UserSettingsModel {
     
     init() { }
     
-    init(userName: String, voice: Voice, audioDevice: AudioDevice, verticalIntensity: Double, horizontalIntensity: Double, hapticFeedback: Bool) {
-        self.userName = userName
+    init(voice: Voice, audioDevice: AudioDevice, verticalIntensity: Double, horizontalIntensity: Double, hapticFeedback: Bool) {
         self.voice = voice
         self.audioDevice = audioDevice
         self.verticalIntensity = verticalIntensity

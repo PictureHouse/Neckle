@@ -4,7 +4,6 @@ import SwiftUI
 final class UserSettingsManager {
     var userSettings = UserSettingsModel()
     
-    var userName: String { userSettings.userName }
     var voice: Voice { userSettings.voice }
     var audioDevice: AudioDevice { userSettings.audioDevice }
     var verticalIntensity: Double { userSettings.verticalIntensity }

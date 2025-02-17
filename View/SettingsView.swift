@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     
-    @State private var userName: String = ""
     @State private var voice: Voice = .Aaron
     @State private var audioDevice: AudioDevice = .AirPods
     @State private var verticalIntensity: Double = 0.5
@@ -14,12 +13,6 @@ struct SettingsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            SettingsTextFieldCell(
-                title: "User Name",
-                placeholder: "Enter your name",
-                text: $userName
-            )
-            
             SettingsMenuCell(
                 title: "Voice",
                 selection: $voice
@@ -30,6 +23,11 @@ struct SettingsView: View {
                 selection: $audioDevice
             )
             
+            SettingsToggleCell(
+                title: "Haptic Feedback",
+                status: $hapticFeedback
+            )
+            
             SettingsSliderCell(
                 title: "Vertical Intensity",
                 minValue: 0.3,
@@ -38,15 +36,10 @@ struct SettingsView: View {
             )
             
             SettingsSliderCell(
-                title: "Horizontal Intensitys",
+                title: "Horizontal Intensity",
                 minValue: 0.3,
                 maxValue: 0.8,
                 status: $horizontalIntensity
-            )
-            
-            SettingsToggleCell(
-                title: "Haptic Feedback",
-                status: $hapticFeedback
             )
             
             Spacer()
@@ -67,7 +60,6 @@ struct SettingsView: View {
             }
         }
         .onAppear {
-            userName = userSettingsManager.userName
             voice = userSettingsManager.voice
             audioDevice = userSettingsManager.audioDevice
             verticalIntensity = userSettingsManager.verticalIntensity
@@ -77,7 +69,6 @@ struct SettingsView: View {
         .onDisappear {
             userSettingsManager.updateUserSettings(
                 UserSettingsModel(
-                    userName: userName,
                     voice: voice,
                     audioDevice: audioDevice,
                     verticalIntensity: verticalIntensity,
