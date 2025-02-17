@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var circleStroke: Double = 10
     @State private var scale: CGFloat = 0.8
+    @State private var showInfoView: Bool = false
     
     var body: some View {
         Circle()
@@ -20,13 +21,24 @@ struct HomeView: View {
             .overlay {
                 VStack(spacing: 16) {
                     Text("Neckle")
-                        .font(.system(size: 48, weight: .bold))
+                        .font(.system(size: 60, weight: .bold))
                     
-                    Text("30 seconds of neck exercise every day,\nthe secret to maintaining a healthy neck")
-                        .lineSpacing(5)
-                        .multilineTextAlignment(.center)
+                    Button {
+                        showInfoView = true
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("Keep your neck healthy with Neckle")
+                            
+                            Image(systemName: "info.circle")
+                        }
+                        .font(.system(size: 14))
+                    }
                 }
                 .foregroundStyle(.teal)
+            }
+            .sheet(isPresented: $showInfoView) {
+                InfoView()
+                    .presentationDragIndicator(.visible)
             }
     }
 }
