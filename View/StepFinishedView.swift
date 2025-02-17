@@ -10,16 +10,23 @@ struct StepFinishedView : View {
     private let circleStroke: Double = 20
     
     @State private var scripts: StepFinishedScripts = .finish
+    @State private var scale: CGFloat = 1
+    @State private var strokeColor: Color = .gray
     
     var body: some View {
         Circle()
-            .stroke(.teal, lineWidth: circleStroke)
+            .stroke(strokeColor, lineWidth: circleStroke)
             .frame(width: 350, height: 350)
+            .scaleEffect(scale)
             .overlay {
                 StepGuideCell(title: currentStep.rawValue, message: currentStep.description)
             }
             .onAppear {
                 speechManager.speak(text: scripts.rawValue, voice: userSettingsManager.voice)
+                withAnimation(.linear(duration: 0.7)) {
+                    scale = 0.8
+                    strokeColor = .teal
+                }
             }
             .onTapGesture {
                 mainButtonState = .play

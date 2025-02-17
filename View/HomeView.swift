@@ -1,13 +1,18 @@
 import SwiftUI
 
-struct InfoView: View {
+struct HomeView: View {
     @State private var circleStroke: Double = 10
+    @State private var scale: CGFloat = 0.8
     
     var body: some View {
         Circle()
             .stroke(.teal, lineWidth: circleStroke)
             .frame(width: 350, height: 350)
+            .scaleEffect(scale)
             .onAppear {
+                withAnimation(.linear(duration: 0.7)) {
+                    scale = 1
+                }
                 withAnimation(.linear.repeatForever(autoreverses: true).speed(0.4)) {
                     circleStroke = 20
                 }
@@ -27,5 +32,5 @@ struct InfoView: View {
 }
 
 #Preview {
-    InfoView()
+    HomeView()
 }

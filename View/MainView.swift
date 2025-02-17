@@ -65,7 +65,7 @@ private extension MainView {
     var contents: some View {
         switch mainButtonState {
         case .disabled, .play:
-            InfoView()
+            HomeView()
         case .stop:
             ProcessView(mainButtonState: $mainButtonState)
         }
