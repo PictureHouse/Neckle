@@ -4,7 +4,7 @@ import CoreMotion
 
 @Observable
 final class BluetoothConnectionManager: NSObject, CMHeadphoneMotionManagerDelegate {
-    private let motionManager = CMHeadphoneMotionManager()
+    private let connectionManager = CMHeadphoneMotionManager()
     var isBluetoothConnected: Bool = false
     
     override init() {
@@ -13,10 +13,10 @@ final class BluetoothConnectionManager: NSObject, CMHeadphoneMotionManagerDelega
     }
     
     private func setupMotionManager() {
-        motionManager.delegate = self
+        connectionManager.delegate = self
         
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
+        if connectionManager.isDeviceMotionAvailable {
+            connectionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
                 guard error == nil else { return }
             }
         }

@@ -15,7 +15,7 @@ final class FaceAngleManager {
     
     private func setupMotionUpdates() {
         guard motionManager.isDeviceMotionAvailable else {
-            print("Headphone motion is not available")
+            print("AirPods motion is not available")
             return
         }
         
