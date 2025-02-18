@@ -28,7 +28,6 @@ struct HomeView: View {
                     
                     Button {
                         showInfoView = true
-                        
                         if userSettingsManager.hapticFeedback {
                             hapticTrigger.toggle()
                         }

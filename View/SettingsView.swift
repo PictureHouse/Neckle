@@ -61,7 +61,6 @@ struct SettingsView: View {
         .padding(16)
         .foregroundStyle(.white)
         .background(.black.opacity(0.95))
-        .ignoresSafeArea(.keyboard)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Settings")
