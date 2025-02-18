@@ -42,7 +42,7 @@ struct HomeView: View {
                 }
                 .foregroundStyle(.teal)
             }
-            .sheet(isPresented: $showInfoView) {
+            .fullScreenCover(isPresented: $showInfoView) {
                 InfoView()
                     .presentationDragIndicator(.visible)
             }

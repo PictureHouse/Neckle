@@ -51,6 +51,7 @@ struct InfoView: View {
                     .foregroundStyle(.gray)
                 }
             }
+            .frame(minWidth: 300, maxWidth: 500)
             .scrollIndicators(.hidden)
         }
         .padding(16)
