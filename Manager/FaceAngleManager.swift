@@ -1,12 +1,10 @@
 import SwiftUI
 import Observation
 import CoreMotion
-import Combine
 
 @Observable
 final class FaceAngleManager {
     private let motionManager = CMHeadphoneMotionManager()
-    private var cancellables = Set<AnyCancellable>()
     
     var pitch: Double = 0.0
     var yaw: Double = 0.0
