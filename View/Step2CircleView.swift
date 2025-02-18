@@ -127,7 +127,7 @@ private extension Step2CircleView {
 private extension Step2CircleView {
     enum Step2Scripts: String {
         case leftGuide = "You have completed Step 1! Now move on to Step 2. Turn your head to the left and hold for 3 seconds."
-        case rightGuide = "Then turn your head to the right and hold for 3 seconds."
+        case rightGuide = "You are doing well. Then, turn your head to the right and hold for 3 seconds."
     }
 }
 

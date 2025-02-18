@@ -43,9 +43,9 @@ enum MainButtonState: String, CustomStringConvertible {
     var description: String {
         switch self {
         case .play:
-            return "Tap to start stretching"
+            return "Tap to start exercise"
         case .stop:
-            return "Tap to stop stretching"
+            return "Tap to stop exercise"
         case .disabled:
             return "Please wear your "
         }

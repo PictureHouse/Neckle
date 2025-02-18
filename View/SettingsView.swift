@@ -48,6 +48,10 @@ struct SettingsView: View {
             )
             .sensoryFeedback(.increase, trigger: hapticFeedback ? horizontalIntensity : nil)
             
+            Text("You can choose the voice type and audio device you want and adjust the intensity according to the condition of your neck.")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.5))
+            
             Spacer()
             
             Text("version \(version)")

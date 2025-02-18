@@ -37,7 +37,7 @@ struct StepFinishedView : View {
 
 private extension StepFinishedView {
     enum StepFinishedScripts: String {
-        case finish = "You've completed all your neck exercises. Keep your neck healthy with simple neck exercises with Neckle!"
+        case finish = "You have completed all your neck exercises. Keep your neck healthy with simple neck exercises with Neckle. Have a nice day!"
     }
 }
 

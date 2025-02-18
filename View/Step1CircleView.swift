@@ -126,8 +126,8 @@ private extension Step1CircleView {
 
 private extension Step1CircleView {
     enum Step1Scripts: String {
-        case upGuide = "Welcome. Now let's start some simple neck exercises with Neckle's voice guide. First, tilt your head back and look up for three seconds."
-        case downGuide = "Next, bow your head and look down for 3 seconds."
+        case upGuide = "Welcome. Now let's start some simple neck exercises with voice guide. Please listen carefully to the audio guide and follow it. First, tilt your head back and look up for 3 seconds."
+        case downGuide = "Good! Next, bow your head and look down for 3 seconds."
     }
 }
 
