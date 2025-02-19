@@ -1,5 +1,6 @@
 import SwiftUI
 
+// A component of the settings screen that change settings value using a toggle.
 struct SettingsToggleCell: View {
     let title: String
     @Binding var status: Bool

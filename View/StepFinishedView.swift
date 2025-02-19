@@ -1,5 +1,6 @@
 import SwiftUI
 
+// The view that appears when the user has completed all the steps of the neck exercise.
 struct StepFinishedView : View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(SpeechManager.self) private var speechManager
@@ -36,6 +37,7 @@ struct StepFinishedView : View {
 }
 
 private extension StepFinishedView {
+    // An enum type containing the script to be spoken through SpeechManager in finish step.
     enum StepFinishedScripts: String {
         case finish = "You have completed all your neck exercises. Keep your neck healthy with simple neck exercises with Neckle. Have a nice day!"
     }

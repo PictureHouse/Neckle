@@ -1,5 +1,6 @@
 import SwiftUI
 
+// View of the neck exercise in Step 1.
 struct Step1CircleView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(SpeechManager.self) private var speechManager
@@ -72,6 +73,7 @@ struct Step1CircleView: View {
 }
 
 private extension Step1CircleView {
+    // A function that changes the progress of the neck exercise through facial motion and a timer in the neck exercise performed in Step 1.
     func step1Process() {
         if !isUpCompleted {
             if faceAngleManager.pitch > userSettingsManager.verticalIntensity {
@@ -125,6 +127,7 @@ private extension Step1CircleView {
 }
 
 private extension Step1CircleView {
+    // An enum type containing the script to be spoken through SpeechManager in step 1.
     enum Step1Scripts: String {
         case upGuide = "Welcome. Now let's start some simple neck exercises with voice guide. Please listen carefully to the audio guide and follow it. First, tilt your head back and look up for 3 seconds."
         case downGuide = "Good! Next, bow your head and look down for 3 seconds."

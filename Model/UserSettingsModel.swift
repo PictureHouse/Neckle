@@ -1,6 +1,8 @@
 import SwiftUI
 
+// Model for managing user settings data.
 final class UserSettingsModel {
+    // Since AppStorage is used, the saved values ​​will not disappear even if the app is terminated.
     @AppStorage("voice") var voice: Voice = .Aaron
     @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
     @AppStorage("vertical") var verticalIntensity: Double = 0.5
@@ -18,7 +20,9 @@ final class UserSettingsModel {
     }
 }
 
+// Enum type that containing the types of voices.
 enum Voice: String, CustomStringConvertible, CaseIterable, Identifiable {
+    // There are five voice cases among the voices that support English.
     case Aaron
     case Daniel
     case Fred
@@ -27,6 +31,7 @@ enum Voice: String, CustomStringConvertible, CaseIterable, Identifiable {
     
     var id: Self { self }
     
+    // A property that contains the identifier of each voice case.
     var description: String {
         switch self {
         case .Aaron:
@@ -43,7 +48,9 @@ enum Voice: String, CustomStringConvertible, CaseIterable, Identifiable {
     }
 }
 
+// Enum type that containing the types of audio devices.
 enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
+    // There are four AirPods as cases for audio devices.
     case AirPods
     case AirPods3
     case AirPodsPro = "AirPods Pro"
@@ -51,6 +58,7 @@ enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
     
     var id: Self { self }
     
+    // A property containing the SF Symbol name of each audio device case.
     var description: String {
         switch self {
         case .AirPods:

@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Main view of the app.
 struct MainView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
@@ -35,9 +36,11 @@ struct MainView: View {
             .padding(16)
             .background(.black.opacity(0.95))
             .onAppear(perform: {
+                // Check if AirPods are connected when the view appears.
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
             })
             .onChange(of: bluetoothConnectionManager.isBluetoothConnected) {
+                // Updates AirPods connection status whenever AirPods connection status changes.
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
             }
             .onChange(of: mainButtonState) {
@@ -52,6 +55,7 @@ struct MainView: View {
 }
 
 private extension MainView {
+    // Header of the main view.
     var header: some View {
         HStack(spacing: 16) {
             Spacer()
@@ -69,6 +73,7 @@ private extension MainView {
         }
     }
     
+    // Body of the main view that shows the main contents of the app.
     @ViewBuilder
     var contents: some View {
         switch mainButtonState {

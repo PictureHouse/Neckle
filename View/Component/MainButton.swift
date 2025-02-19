@@ -1,5 +1,6 @@
 import SwiftUI
 
+// The main button is displayed at the bottom of the screen and informs the user of the AirPods connection status and manages whether or not the neck exercise is in progress.
 struct MainButton: View {
     let state: MainButtonState
     let type: AudioDevice
@@ -35,11 +36,14 @@ struct MainButton: View {
     }
 }
 
+// Enum type containing the state of the main button.
 enum MainButtonState: String, CustomStringConvertible {
+    // The status of the main button is configured as neck exercise not in progress, neck exercise in progress, and AirPods not connected.
     case play
     case stop
     case disabled
     
+    // The string to be displayed on the main button for each step.
     var description: String {
         switch self {
         case .play:

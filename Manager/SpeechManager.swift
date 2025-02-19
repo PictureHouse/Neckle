@@ -2,10 +2,12 @@ import SwiftUI
 import Observation
 import AVFoundation
 
+// Manager that performs TTS, which reads text aloud.
 @Observable
 final class SpeechManager {
     private let synthesizer = AVSpeechSynthesizer()
     
+    // A function that performs TTS by receiving the text to be spoken and the set voice as parameters.
     func speak(text: String, voice: Voice) {
         let utterance = AVSpeechUtterance(string: text)
         if let voice = AVSpeechSynthesisVoice(identifier: voice.description) {
@@ -20,6 +22,7 @@ final class SpeechManager {
         synthesizer.speak(utterance)
     }
     
+    // A function that immediately stops TTS.
     func stop() {
         synthesizer.stopSpeaking(at: .immediate)
     }

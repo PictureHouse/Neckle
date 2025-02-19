@@ -1,5 +1,6 @@
 import SwiftUI
 
+// The default view of the app when AirPods are not connected or the user is not performing a neck exercise.
 struct HomeView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     
@@ -44,7 +45,6 @@ struct HomeView: View {
             }
             .fullScreenCover(isPresented: $showInfoView) {
                 InfoView()
-                    .presentationDragIndicator(.visible)
             }
             .sensoryFeedback(.impact, trigger: hapticTrigger)
     }

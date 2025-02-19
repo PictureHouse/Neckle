@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Information view containing information such as the app's background and purpose.
 struct InfoView: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -61,6 +62,7 @@ struct InfoView: View {
 }
 
 private extension InfoView {
+    // Header of the information view.
     var header: some View {
         HStack(spacing: 16) {
             Spacer()

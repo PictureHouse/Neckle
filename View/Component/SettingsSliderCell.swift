@@ -1,5 +1,6 @@
 import SwiftUI
 
+// A component of the settings screen that change settings value using a slider.
 struct SettingsSliderCell: View {
     let title: String
     let minValue: Double

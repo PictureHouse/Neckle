@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Settings view where users can change their user settings.
 struct SettingsView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     
@@ -25,6 +26,7 @@ struct SettingsView: View {
             )
             .sensoryFeedback(.impact, trigger: hapticFeedback ? audioDevice : nil)
             
+            // Haptic feedback is only supported on iPhone, so the haptic feedback settings are only visible on iPhone.
             if UIDevice.current.userInterfaceIdiom == .phone {
                 SettingsToggleCell(
                     title: "Haptic Feedback",
@@ -69,6 +71,7 @@ struct SettingsView: View {
             }
         }
         .onAppear {
+            // Loads user settings data when the settings screen appears.
             voice = userSettingsManager.voice
             audioDevice = userSettingsManager.audioDevice
             verticalIntensity = userSettingsManager.verticalIntensity
@@ -76,6 +79,7 @@ struct SettingsView: View {
             hapticFeedback = userSettingsManager.hapticFeedback
         }
         .onDisappear {
+            // Automatically updates the user's settings data when exiting the settings screen.
             userSettingsManager.updateUserSettings(
                 UserSettingsModel(
                     voice: voice,

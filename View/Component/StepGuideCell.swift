@@ -1,5 +1,6 @@
 import SwiftUI
 
+// A component that displays a title and message in a circle for each step.
 struct StepGuideCell: View {
     let title: String
     let message: String

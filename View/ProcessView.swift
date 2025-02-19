@@ -1,5 +1,6 @@
 import SwiftUI
 
+// The view shown on the screen when performing neck exercises, which is the main feature of the app.
 struct ProcessView: View {
     @Binding var mainButtonState: MainButtonState
     
@@ -14,6 +15,7 @@ struct ProcessView: View {
                 currentStep: $currentStep
             )
             .onAppear {
+                // Start facial motion tracking when the first step begins.
                 faceAngleManager.startUpdates()
             }
         case .step2:
@@ -22,6 +24,7 @@ struct ProcessView: View {
                 currentStep: $currentStep
             )
             .onDisappear {
+                // End facial motion tracking when the last step is completed.
                 faceAngleManager.stopUpdates()
             }
         case .finished:
@@ -30,11 +33,14 @@ struct ProcessView: View {
     }
 }
 
+// Enum type containing the steps of the neck exercise and the string to be displayed on the bottom main button for each step.
 enum Steps: String, CustomStringConvertible {
+    // The neck exercise phase consists of two steps and a completion step.
     case step1 = "Step 1"
     case step2 = "Step 2"
     case finished = "Finished!"
     
+    // The string to be displayed on the StepGuideCell for each step.
     var description: String {
         switch self {
         case .step1, .step2:
