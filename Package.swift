@@ -33,7 +33,7 @@ let package = Package(
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
             capabilities: [
-                .motion(purposeString: "We measure facial motion data using AirPods to use the angle of the face required for neck stretching.")
+                .motion(purposeString: "We measure facial motion data using AirPods to use the angle of the face required for neck exercise.")
             ],
             appCategory: .healthcareFitness
         )

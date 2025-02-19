@@ -20,7 +20,6 @@ struct InfoView: View {
                     Image("neck_pain")
                         .resizable()
                         .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     
                     Text("A little neck exercise can go a long way in maintaining a healthy neck.")
                         .multilineTextAlignment(.leading)
@@ -28,7 +27,6 @@ struct InfoView: View {
                     Image("neck_exercise")
                         .resizable()
                         .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     
                     Text("That’s why I developed Neckle to help users maintain a healthy neck through simple neck exercises.")
                         .multilineTextAlignment(.leading)
@@ -36,17 +34,14 @@ struct InfoView: View {
                     Image("neck_healthy")
                         .resizable()
                         .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     
                     Text("The name of the app, Neckle, is a combination of the words Neck and Circle, and is intended to help users protect their neck health by filling in the circle.")
                         .multilineTextAlignment(.leading)
                     
                     HStack {
-                        Text("2025 Yune Cho")
-                        
                         Spacer()
                         
-                        Text("Images from iStock by Getty Images")
+                        Text("2025 Yune Cho")
                     }
                     .font(.caption2)
                     .foregroundStyle(.gray)
