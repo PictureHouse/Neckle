@@ -3,8 +3,10 @@ import SwiftUI
 // Main view of the app.
 struct MainView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
-    @Environment(BluetoothConnectionManager.self) private var bluetoothConnectionManager
     @Environment(SpeechManager.self) private var speechManager
+    
+    // Create objects of BluetoothConnectionManager here because it used only in this view.
+    @State private var bluetoothConnectionManager = BluetoothConnectionManager()
     
     @State private var mainButtonState: MainButtonState = .disabled
     @State private var mainButtonHapticTrigger: Bool = false
@@ -88,6 +90,5 @@ private extension MainView {
 #Preview {
     MainView()
         .environment(UserSettingsManager())
-        .environment(BluetoothConnectionManager())
         .environment(SpeechManager())
 }

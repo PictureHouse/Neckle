@@ -4,7 +4,9 @@ import SwiftUI
 struct ProcessView: View {
     @Binding var mainButtonState: MainButtonState
     
+    // Create objects of FaceAngleManager here because it used only in this view and child views.
     @State private var faceAngleManager = FaceAngleManager()
+    
     @State private var currentStep: Steps = .step1
     
     var body: some View {
