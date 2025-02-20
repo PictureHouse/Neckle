@@ -21,7 +21,7 @@ struct InfoView: View {
                         .resizable()
                         .scaledToFit()
                     
-                    Text("A little neck exercise can go a long way in maintaining a healthy neck.")
+                    Text("Even simple neck exercises you do in your daily life can go a long way in maintaining a healthy neck.")
                         .multilineTextAlignment(.leading)
                     
                     Image("neck_exercise")
@@ -36,6 +36,13 @@ struct InfoView: View {
                         .scaledToFit()
                     
                     Text("The name of the app, Neckle, is a combination of the words Neck and Circle, and is intended to help users protect their neck health by filling in the circle.")
+                        .multilineTextAlignment(.leading)
+                    
+                    Image("airpods")
+                        .resizable()
+                        .scaledToFit()
+                    
+                    Text("This app uses the motion sensor in AirPods to measure head movement and helps users exercise their neck with voice guidance through AirPods. Put on your AirPods and enjoy Neckle!")
                         .multilineTextAlignment(.leading)
                     
                     HStack {
