@@ -69,6 +69,19 @@ struct SettingsView: View {
                     .bold()
                     .foregroundStyle(.teal)
             }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    voice = .Aaron
+                    audioDevice = .AirPods
+                    verticalIntensity = 0.5
+                    horizontalIntensity = 0.7
+                    hapticFeedback = true
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .foregroundStyle(.teal)
+                }
+            }
         }
         .onAppear {
             // Loads user settings data when the settings screen appears.
