@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var verticalIntensity: Double = 0.5
     @State private var horizontalIntensity: Double = 0.7
     @State private var hapticFeedback: Bool = true
+    @State private var showResetAlert: Bool = false
     
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     
@@ -71,11 +72,7 @@ struct SettingsView: View {
             
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    voice = .Aaron
-                    audioDevice = .AirPods
-                    verticalIntensity = 0.5
-                    horizontalIntensity = 0.7
-                    hapticFeedback = true
+                    showResetAlert = true
                 } label: {
                     Image(systemName: "arrow.clockwise")
                         .foregroundStyle(.teal)
@@ -101,6 +98,15 @@ struct SettingsView: View {
                     hapticFeedback: hapticFeedback
                 )
             )
+        }
+        .alert("Reset settings", isPresented: $showResetAlert) {
+            Button(role: .destructive) {
+                resetSettings()
+            } label: {
+                Text("Reset")
+            }
+        } message: {
+            Text("Would you like to reset your settings?")
         }
     }
 }
@@ -135,6 +141,16 @@ private extension SettingsView {
                     }
             }
         }
+    }
+}
+
+private extension SettingsView {
+    func resetSettings() {
+        voice = .Aaron
+        audioDevice = .AirPods
+        verticalIntensity = 0.5
+        horizontalIntensity = 0.7
+        hapticFeedback = true
     }
 }
 
