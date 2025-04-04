@@ -72,3 +72,10 @@ enum AudioDevice: String, CustomStringConvertible, CaseIterable, Identifiable {
         }
     }
 }
+
+// Struct type for feedback email.
+struct FeedbackEmail {
+    let email = "picturehouse@kakao.com"
+    let subject = "[Neckle Feedback]"
+    let body = "Please enter your feedback here.\nThank you."
+}

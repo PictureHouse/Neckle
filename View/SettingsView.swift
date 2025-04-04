@@ -3,6 +3,7 @@ import SwiftUI
 // Settings view where users can change their user settings.
 struct SettingsView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
+    @Environment(\.openURL) private var openURL
     
     @State private var voice: Voice = .Aaron
     @State private var audioDevice: AudioDevice = .AirPods
@@ -56,9 +57,7 @@ struct SettingsView: View {
             
             Spacer()
             
-            Text("version \(version)")
-                .font(.caption)
-                .foregroundStyle(.white.opacity(0.5))
+            footer
         }
         .padding(16)
         .foregroundStyle(.white)
@@ -102,6 +101,39 @@ struct SettingsView: View {
                     hapticFeedback: hapticFeedback
                 )
             )
+        }
+    }
+}
+
+private extension SettingsView {
+    var footer: some View {
+        HStack(alignment: .bottom) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Neckle | version \(version)")
+                
+                Text("2025 Yune Cho\nWWDC25 Swift Student Challenge Winner")
+                    .font(.caption)
+            }
+            .foregroundStyle(.white.opacity(0.5))
+            
+            Spacer()
+            
+            Button {
+                userSettingsManager.sendFeedback(openURL: openURL)
+            } label: {
+                Circle()
+                    .fill(Color.teal)
+                    .frame(width: 64, height: 64)
+                    .overlay {
+                        VStack(spacing: 4) {
+                            Image(systemName: "envelope.fill")
+                                .font(.title3)
+                            
+                            Text("Feedback")
+                                .font(.caption2)
+                        }
+                    }
+            }
         }
     }
 }

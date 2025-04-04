@@ -18,4 +18,13 @@ final class UserSettingsManager {
     func updateUserSettings(_ newUserSettings: UserSettingsModel) {
         self.userSettings = newUserSettings
     }
+    
+    // A function that sends feedback email to develpoer.
+    func sendFeedback(openURL: OpenURLAction) {
+        let feedbackEmail = FeedbackEmail()
+        let urlString = "mailto:\(feedbackEmail.email)?subject=\(feedbackEmail.subject.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")&body=\(feedbackEmail.body.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? "")"
+        
+        guard let url = URL(string: urlString) else { return }
+        openURL.callAsFunction(url)
+    }
 }

@@ -44,14 +44,6 @@ struct InfoView: View {
                     
                     Text("This app uses the motion sensor in AirPods to measure head movement and helps users exercise their neck with voice guidance through AirPods. Put on your AirPods and enjoy Neckle!")
                         .multilineTextAlignment(.leading)
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Text("2025 Yune Cho")
-                    }
-                    .font(.caption2)
-                    .foregroundStyle(.gray)
                 }
             }
             .frame(minWidth: 300, maxWidth: 500)
