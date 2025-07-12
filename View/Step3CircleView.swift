@@ -1,14 +1,14 @@
 import SwiftUI
 
-// View of the neck exercise in Step 2.
-struct Step2CircleView: View {
+// View of the neck exercise in Step 3.
+struct Step3CircleView: View {
     @Environment(UserSettingsManager.self) private var userSettingsManager
     @Environment(SpeechManager.self) private var speechManager
     
     @Bindable var faceAngleManager: FaceAngleManager
     @Binding var currentStep: Steps
     
-    @State private var currentScript: Step2Scripts = .leftGuide
+    @State private var currentScript: Step3Scripts = .leftGuide
     @State private var leftProgress: CGFloat = 0.0
     @State private var rightProgress: CGFloat = 0.0
     @State private var leftTimer: Timer? = nil
@@ -53,7 +53,7 @@ struct Step2CircleView: View {
         }
         .onChange(of: rightProgress) {
             if rightProgress == 1 {
-                currentStep = .step3
+                currentStep = .finished
             }
         }
         .onChange(of: currentScript) {
@@ -64,7 +64,7 @@ struct Step2CircleView: View {
             speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
         }
         .onReceive(timer) { _ in
-            step2Process()
+            step3Process()
         }
         .sensoryFeedback(.success, trigger: successTrigger)
         .sensoryFeedback(.increase, trigger: userSettingsManager.hapticFeedback ? leftProgress : nil)
@@ -72,11 +72,11 @@ struct Step2CircleView: View {
     }
 }
 
-private extension Step2CircleView {
-    // A function that changes the progress of the neck exercise through facial motion and a timer in the neck exercise performed in Step 2.
-    func step2Process() {
+private extension Step3CircleView {
+    // A function that changes the progress of the neck exercise through facial motion and a timer in the neck exercise performed in Step 3.
+    func step3Process() {
         if !isLeftCompleted {
-            if faceAngleManager.yaw > userSettingsManager.yawIntensity {
+            if faceAngleManager.roll < -userSettingsManager.rollIntensity {
                 if leftTimer == nil {
                     leftTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if leftProgress < 1 {
@@ -100,7 +100,7 @@ private extension Step2CircleView {
                 leftTimer = nil
             }
         } else {
-            if faceAngleManager.yaw < -userSettingsManager.yawIntensity {
+            if faceAngleManager.roll > userSettingsManager.rollIntensity {
                 if rightTimer == nil {
                     rightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if rightProgress < 1 {
@@ -114,7 +114,7 @@ private extension Step2CircleView {
                             speechManager.stop()
                             rightTimer?.invalidate()
                             rightTimer = nil
-                            currentStep = .step3
+                            currentStep = .finished
                         }
                     }
                 }
@@ -126,18 +126,18 @@ private extension Step2CircleView {
     }
 }
 
-private extension Step2CircleView {
-    // An enum type containing the script to be spoken through SpeechManager in step 2.
-    enum Step2Scripts: String {
-        case leftGuide = "You have completed Step 1! Now move on to Step 2. Turn your head to the left and hold for 3 seconds."
-        case rightGuide = "You are doing well. Then, turn your head to the right and hold for 3 seconds."
+private extension Step3CircleView {
+    // An enum type containing the script to be spoken through SpeechManager in step 3.
+    enum Step3Scripts: String {
+        case leftGuide = "You have completed Step 2! Now move on to Step 3. Raise your left arm over your head, and gently pull your head toward your left shoulder to stretch the right side of your neck for 3 seconds."
+        case rightGuide = "Nice. Then, raise your right arm over your head, and gently pull your head toward your right shoulder to stretch the left side of your neck for 3 seconds."
     }
 }
 
 #Preview {
-    Step2CircleView(
+    Step3CircleView(
         faceAngleManager: FaceAngleManager(),
-        currentStep: .constant(Steps.step2)
+        currentStep: .constant(Steps.step3)
     )
     .environment(UserSettingsManager())
     .environment(SpeechManager())

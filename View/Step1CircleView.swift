@@ -76,7 +76,7 @@ private extension Step1CircleView {
     // A function that changes the progress of the neck exercise through facial motion and a timer in the neck exercise performed in Step 1.
     func step1Process() {
         if !isUpCompleted {
-            if faceAngleManager.pitch > userSettingsManager.verticalIntensity {
+            if faceAngleManager.pitch > userSettingsManager.pitchIntensity {
                 if upTimer == nil {
                     upTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if upProgress < 1 {
@@ -100,7 +100,7 @@ private extension Step1CircleView {
                 upTimer = nil
             }
         } else {
-            if faceAngleManager.pitch < -userSettingsManager.verticalIntensity {
+            if faceAngleManager.pitch < -userSettingsManager.pitchIntensity {
                 if downTimer == nil {
                     downTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                         if downProgress < 1 {

@@ -5,17 +5,19 @@ final class UserSettingsModel {
     // Since AppStorage is used, the saved values ​​will not disappear even if the app is terminated.
     @AppStorage("voice") var voice: Voice = .Aaron
     @AppStorage("audioDevice") var audioDevice: AudioDevice = .AirPods
-    @AppStorage("vertical") var verticalIntensity: Double = 0.5
-    @AppStorage("horizontal") var horizontalIntensity: Double = 0.7
+    @AppStorage("pitch") var pitchIntensity: Double = 0.5
+    @AppStorage("yaw") var yawIntensity: Double = 0.6
+    @AppStorage("roll") var rollIntensity: Double = 0.6
     @AppStorage("hapticFeedback") var hapticFeedback: Bool = true
     
     init() { }
     
-    init(voice: Voice, audioDevice: AudioDevice, verticalIntensity: Double, horizontalIntensity: Double, hapticFeedback: Bool) {
+    init(voice: Voice, audioDevice: AudioDevice, pitchIntensity: Double, yawIntensity: Double, rollIntensity: Double, hapticFeedback: Bool) {
         self.voice = voice
         self.audioDevice = audioDevice
-        self.verticalIntensity = verticalIntensity
-        self.horizontalIntensity = horizontalIntensity
+        self.pitchIntensity = pitchIntensity
+        self.yawIntensity = yawIntensity
+        self.rollIntensity = rollIntensity
         self.hapticFeedback = hapticFeedback
     }
 }

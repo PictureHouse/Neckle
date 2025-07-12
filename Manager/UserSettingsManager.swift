@@ -10,8 +10,9 @@ final class UserSettingsManager {
     // Properties that return each item in the user's settings.
     var voice: Voice { userSettings.voice }
     var audioDevice: AudioDevice { userSettings.audioDevice }
-    var verticalIntensity: Double { userSettings.verticalIntensity }
-    var horizontalIntensity: Double { userSettings.horizontalIntensity }
+    var pitchIntensity: Double { userSettings.pitchIntensity }
+    var yawIntensity: Double { userSettings.yawIntensity }
+    var rollIntensity: Double { userSettings.rollIntensity }
     var hapticFeedback: Bool { userSettings.hapticFeedback }
     
     // A function that updates the user's settings.

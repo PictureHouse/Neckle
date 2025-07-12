@@ -25,6 +25,11 @@ struct ProcessView: View {
                 faceAngleManager: faceAngleManager,
                 currentStep: $currentStep
             )
+        case .step3:
+            Step3CircleView(
+                faceAngleManager: faceAngleManager,
+                currentStep: $currentStep
+            )
             .onDisappear {
                 // End facial motion tracking when the last step is completed.
                 faceAngleManager.stopUpdates()
@@ -40,12 +45,13 @@ enum Steps: String, CustomStringConvertible {
     // The neck exercise phase consists of two steps and a completion step.
     case step1 = "Step 1"
     case step2 = "Step 2"
+    case step3 = "Step 3"
     case finished = "Finished!"
     
     // The string to be displayed on the StepGuideCell for each step.
     var description: String {
         switch self {
-        case .step1, .step2:
+        case .step1, .step2, .step3:
             return "Tap the circle to listen again"
         case .finished:
             return "Tap the circle to finish"

@@ -13,6 +13,9 @@ final class FaceAngleManager {
     // The left and right rotation value of the head.
     var yaw: Double = 0.0
     
+    // The left and right tilt value of the head.
+    var roll: Double = 0.0
+    
     init() {
         setupMotionUpdates()
     }
@@ -38,6 +41,7 @@ final class FaceAngleManager {
     private func updateAngles(from motion: CMDeviceMotion) {
         pitch = motion.attitude.pitch
         yaw = motion.attitude.yaw
+        roll = motion.attitude.roll
     }
     
     // A function to start motion update.

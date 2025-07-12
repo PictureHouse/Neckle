@@ -7,8 +7,9 @@ struct SettingsView: View {
     
     @State private var voice: Voice = .Aaron
     @State private var audioDevice: AudioDevice = .AirPods
-    @State private var verticalIntensity: Double = 0.5
-    @State private var horizontalIntensity: Double = 0.7
+    @State private var pitchIntensity: Double = 0.5
+    @State private var yawIntensity: Double = 0.6
+    @State private var rollIntensity: Double = 0.6
     @State private var hapticFeedback: Bool = true
     @State private var showResetAlert: Bool = false
     
@@ -37,20 +38,28 @@ struct SettingsView: View {
             }
             
             SettingsSliderCell(
-                title: "Vertical Intensity",
+                title: "Up/Down Intensity",
                 minValue: 0.3,
                 maxValue: 0.8,
-                status: $verticalIntensity
+                status: $pitchIntensity
             )
-            .sensoryFeedback(.increase, trigger: hapticFeedback ? verticalIntensity : nil)
+            .sensoryFeedback(.increase, trigger: hapticFeedback ? pitchIntensity : nil)
             
             SettingsSliderCell(
-                title: "Horizontal Intensity",
+                title: "Left/Right Intensity",
                 minValue: 0.3,
                 maxValue: 0.8,
-                status: $horizontalIntensity
+                status: $yawIntensity
             )
-            .sensoryFeedback(.increase, trigger: hapticFeedback ? horizontalIntensity : nil)
+            .sensoryFeedback(.increase, trigger: hapticFeedback ? yawIntensity : nil)
+            
+            SettingsSliderCell(
+                title: "Head Tilt Intensity",
+                minValue: 0.3,
+                maxValue: 0.8,
+                status: $rollIntensity
+            )
+            .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
             
             Text("You can choose the voice type and audio device you want and adjust the intensity according to the condition of your neck.")
                 .font(.caption)
@@ -83,8 +92,9 @@ struct SettingsView: View {
             // Loads user settings data when the settings screen appears.
             voice = userSettingsManager.voice
             audioDevice = userSettingsManager.audioDevice
-            verticalIntensity = userSettingsManager.verticalIntensity
-            horizontalIntensity = userSettingsManager.horizontalIntensity
+            pitchIntensity = userSettingsManager.pitchIntensity
+            yawIntensity = userSettingsManager.yawIntensity
+            rollIntensity = userSettingsManager.rollIntensity
             hapticFeedback = userSettingsManager.hapticFeedback
         }
         .onDisappear {
@@ -93,8 +103,9 @@ struct SettingsView: View {
                 UserSettingsModel(
                     voice: voice,
                     audioDevice: audioDevice,
-                    verticalIntensity: verticalIntensity,
-                    horizontalIntensity: horizontalIntensity,
+                    pitchIntensity: pitchIntensity,
+                    yawIntensity: yawIntensity,
+                    rollIntensity: rollIntensity,
                     hapticFeedback: hapticFeedback
                 )
             )
@@ -148,8 +159,9 @@ private extension SettingsView {
     func resetSettings() {
         voice = .Aaron
         audioDevice = .AirPods
-        verticalIntensity = 0.5
-        horizontalIntensity = 0.7
+        pitchIntensity = 0.5
+        yawIntensity = 0.6
+        rollIntensity = 0.6
         hapticFeedback = true
     }
 }
