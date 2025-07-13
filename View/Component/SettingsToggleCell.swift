@@ -9,7 +9,7 @@ struct SettingsToggleCell: View {
         VStack {
             Toggle(isOn: $status) {
                 Text(title)
-                    .bold()
+                    .font(.system(size: 16, weight: .bold))
             }
             .tint(.teal)
             .padding(.bottom, 8)

@@ -9,13 +9,15 @@ struct SettingsMenuCell<T: CaseIterable & Identifiable & RawRepresentable & Hash
         VStack {
             HStack {
                 Text(title)
-                    .bold()
+                    .font(.system(size: 16, weight: .bold))
                 
                 Spacer()
                 
                 Picker(title, selection: $selection) {
                     ForEach(Array(T.allCases), id: \.self) { enumCase in
-                        Text(enumCase.rawValue).tag(enumCase)
+                        Text(enumCase.rawValue)
+                            .font(.system(size: 16))
+                            .tag(enumCase)
                     }
                 }
                 .pickerStyle(.menu)

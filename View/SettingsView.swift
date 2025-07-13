@@ -17,7 +17,7 @@ struct SettingsView: View {
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             SettingsMenuCell(
                 title: "Voice",
                 selection: $voice
@@ -40,7 +40,7 @@ struct SettingsView: View {
             
             DisclosureGroup(isExpanded: $intesitySettingsExpanded) {
                 Text("You can adjust the intensity according to the condition of your neck.")
-                    .font(.caption2)
+                    .font(.system(size: 10))
                     .foregroundStyle(.white.opacity(0.5))
                     .multilineTextAlignment(.leading)
                     .padding(.vertical, 8)
@@ -70,7 +70,7 @@ struct SettingsView: View {
                 .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
             } label: {
                 Text("Neck Exercise Intensity Customization")
-                    .bold()
+                    .font(.system(size: 16, weight: .bold))
                     .padding(.vertical, 8)
             }
             
@@ -84,7 +84,7 @@ struct SettingsView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Settings")
-                    .bold()
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundStyle(.teal)
             }
             
@@ -93,6 +93,7 @@ struct SettingsView: View {
                     showResetAlert = true
                 } label: {
                     Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 16))
                         .foregroundStyle(.teal)
                 }
             }
@@ -124,9 +125,11 @@ struct SettingsView: View {
                 resetSettings()
             } label: {
                 Text("Reset")
+                    .font(.system(size: 16, weight: .bold))
             }
         } message: {
             Text("Would you like to reset your settings?")
+                .font(.system(size: 16))
         }
     }
 }
@@ -136,9 +139,10 @@ private extension SettingsView {
         HStack(alignment: .bottom) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Neckle | version \(version)")
+                    .font(.system(size: 14))
                 
                 Text("2025 Yune Cho")
-                    .font(.caption)
+                    .font(.system(size: 10))
             }
             .foregroundStyle(.white.opacity(0.5))
             
@@ -153,10 +157,10 @@ private extension SettingsView {
                     .overlay {
                         VStack(spacing: 4) {
                             Image(systemName: "envelope.fill")
-                                .font(.title3)
+                                .font(.system(size: 18))
                             
                             Text("Feedback")
-                                .font(.caption2)
+                                .font(.system(size: 10))
                         }
                     }
             }

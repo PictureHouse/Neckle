@@ -7,7 +7,6 @@ struct MainView: View {
     
     // Create objects of BluetoothConnectionManager here because it used only in this view.
     @State private var bluetoothConnectionManager = BluetoothConnectionManager()
-    
     @State private var mainButtonState: MainButtonState = .disabled
     @State private var mainButtonHapticTrigger: Bool = false
     

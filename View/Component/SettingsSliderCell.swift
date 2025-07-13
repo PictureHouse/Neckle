@@ -10,13 +10,15 @@ struct SettingsSliderCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .bold()
+                .font(.system(size: 16, weight: .bold))
             
             Slider(value: $status, in: minValue...maxValue) {
             } minimumValueLabel: {
                 Text("Min")
+                    .font(.system(size: 16))
             } maximumValueLabel: {
                 Text("Max")
+                    .font(.system(size: 16))
             }
             .tint(.teal)
             .padding(.bottom, 8)

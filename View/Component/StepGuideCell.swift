@@ -13,6 +13,7 @@ struct StepGuideCell: View {
                 .frame(height: 150)
             
             Text(message)
+                .font(.system(size: 16))
                 .lineSpacing(5)
                 .multilineTextAlignment(.center)
         }

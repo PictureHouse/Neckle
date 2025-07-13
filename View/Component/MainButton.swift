@@ -30,7 +30,7 @@ struct MainButton: View {
             .padding(8)
             
             Text(state == .disabled ? state.description + type.rawValue : state.description)
-                .font(.caption)
+                .font(.system(size: 12))
                 .foregroundStyle(.white.opacity(0.5))
         }
     }

@@ -15,36 +15,33 @@ struct InfoView: View {
                         .foregroundStyle(.teal)
                     
                     Text("Neck pain is one of the most common pains among modern people who use mobile phones and computers a lot. It is a chronic disease that makes our daily lives uncomfortable.")
-                        .multilineTextAlignment(.leading)
                     
                     Image("neck_pain")
                         .resizable()
                         .scaledToFit()
                     
                     Text("Even simple neck exercises you do in your daily life can go a long way in maintaining a healthy neck.")
-                        .multilineTextAlignment(.leading)
                     
                     Image("neck_exercise")
                         .resizable()
                         .scaledToFit()
                     
                     Text("That’s why I developed Neckle to help users maintain a healthy neck through simple neck exercises.")
-                        .multilineTextAlignment(.leading)
                     
                     Image("neck_healthy")
                         .resizable()
                         .scaledToFit()
                     
                     Text("The name of the app, Neckle, is a combination of the words Neck and Circle, and is intended to help users protect their neck health by filling in the circle.")
-                        .multilineTextAlignment(.leading)
                     
                     Image("airpods")
                         .resizable()
                         .scaledToFit()
                     
                     Text("This app uses the motion sensor in AirPods to measure head movement and helps users exercise their neck with voice guidance through AirPods. Put on your AirPods and enjoy Neckle!")
-                        .multilineTextAlignment(.leading)
                 }
+                .multilineTextAlignment(.leading)
+                .font(.system(size: 16))
             }
             .frame(minWidth: 300, maxWidth: 500)
             .scrollIndicators(.hidden)
