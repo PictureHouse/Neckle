@@ -20,7 +20,7 @@ struct StepFinishedView : View {
             .frame(width: 350, height: 350)
             .scaleEffect(scale)
             .overlay {
-                StepGuideCell(title: currentStep.rawValue, message: currentStep.description)
+                StepGuideCell(image: currentStep.rawValue, message: currentStep.description)
             }
             .onAppear {
                 speechManager.speak(text: scripts.rawValue, voice: userSettingsManager.voice)

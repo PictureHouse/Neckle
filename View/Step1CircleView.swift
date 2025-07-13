@@ -46,7 +46,12 @@ struct Step1CircleView: View {
                         .rotationEffect(.degrees(180))
                 )
             
-            StepGuideCell(title: currentStep.rawValue, message: currentStep.description)
+            switch currentScript {
+            case .upGuide:
+                StepGuideCell(image: currentStep.rawValue + "_up", message: currentStep.description)
+            case .downGuide:
+                StepGuideCell(image: currentStep.rawValue + "_down", message: currentStep.description)
+            }
         }
         .onAppear {
             speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)

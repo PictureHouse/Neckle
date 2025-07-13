@@ -1,14 +1,16 @@
 import SwiftUI
 
-// A component that displays a title and message in a circle for each step.
+// A component that displays an image and message in a circle for each step.
 struct StepGuideCell: View {
-    let title: String
+    let image: String
     let message: String
     
     var body: some View {
-        VStack(spacing: 16) {
-            Text(title)
-                .font(.system(size: 48, weight: .bold))
+        VStack(spacing: 8) {
+            Image(image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 150)
             
             Text(message)
                 .lineSpacing(5)
@@ -19,5 +21,5 @@ struct StepGuideCell: View {
 }
 
 #Preview {
-    StepGuideCell(title: "Title", message: "Message")
+    StepGuideCell(image: "step1_left", message: "Message")
 }

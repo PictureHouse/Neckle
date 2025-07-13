@@ -43,10 +43,10 @@ struct ProcessView: View {
 // Enum type containing the steps of the neck exercise and the string to be displayed on the bottom main button for each step.
 enum Steps: String, CustomStringConvertible {
     // The neck exercise phase consists of two steps and a completion step.
-    case step1 = "Step 1"
-    case step2 = "Step 2"
-    case step3 = "Step 3"
-    case finished = "Finished!"
+    case step1 = "step1"
+    case step2 = "step2"
+    case step3 = "step3"
+    case finished = "neck_healthy"
     
     // The string to be displayed on the StepGuideCell for each step.
     var description: String {
