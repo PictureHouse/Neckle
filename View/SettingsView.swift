@@ -7,10 +7,11 @@ struct SettingsView: View {
     
     @State private var voice: Voice = .Aaron
     @State private var audioDevice: AudioDevice = .AirPods
+    @State private var hapticFeedback: Bool = true
+    @State private var intesitySettingsExpanded: Bool = false
     @State private var pitchIntensity: Double = 0.5
     @State private var yawIntensity: Double = 0.6
     @State private var rollIntensity: Double = 0.6
-    @State private var hapticFeedback: Bool = true
     @State private var showResetAlert: Bool = false
     
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
@@ -37,33 +38,41 @@ struct SettingsView: View {
                 )
             }
             
-            SettingsSliderCell(
-                title: "Up/Down Intensity",
-                minValue: 0.3,
-                maxValue: 0.8,
-                status: $pitchIntensity
-            )
-            .sensoryFeedback(.increase, trigger: hapticFeedback ? pitchIntensity : nil)
-            
-            SettingsSliderCell(
-                title: "Left/Right Intensity",
-                minValue: 0.3,
-                maxValue: 0.8,
-                status: $yawIntensity
-            )
-            .sensoryFeedback(.increase, trigger: hapticFeedback ? yawIntensity : nil)
-            
-            SettingsSliderCell(
-                title: "Head Tilt Intensity",
-                minValue: 0.3,
-                maxValue: 0.8,
-                status: $rollIntensity
-            )
-            .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
-            
-            Text("You can choose the voice type and audio device you want and adjust the intensity according to the condition of your neck.")
-                .font(.caption)
-                .foregroundStyle(.white.opacity(0.5))
+            DisclosureGroup(isExpanded: $intesitySettingsExpanded) {
+                Text("You can adjust the intensity according to the condition of your neck.")
+                    .font(.caption2)
+                    .foregroundStyle(.white.opacity(0.5))
+                    .multilineTextAlignment(.leading)
+                    .padding(.vertical, 8)
+                
+                SettingsSliderCell(
+                    title: "Up/Down Intensity",
+                    minValue: 0.3,
+                    maxValue: 0.8,
+                    status: $pitchIntensity
+                )
+                .sensoryFeedback(.increase, trigger: hapticFeedback ? pitchIntensity : nil)
+                
+                SettingsSliderCell(
+                    title: "Left/Right Intensity",
+                    minValue: 0.3,
+                    maxValue: 0.8,
+                    status: $yawIntensity
+                )
+                .sensoryFeedback(.increase, trigger: hapticFeedback ? yawIntensity : nil)
+                
+                SettingsSliderCell(
+                    title: "Head Tilt Intensity",
+                    minValue: 0.3,
+                    maxValue: 0.8,
+                    status: $rollIntensity
+                )
+                .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
+            } label: {
+                Text("Neck Exercise Intensity Customization")
+                    .bold()
+                    .padding(.vertical, 8)
+            }
             
             Spacer()
             
@@ -128,7 +137,7 @@ private extension SettingsView {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Neckle | version \(version)")
                 
-                Text("2025 Yune Cho\nWWDC25 Swift Student Challenge Winner")
+                Text("2025 Yune Cho")
                     .font(.caption)
             }
             .foregroundStyle(.white.opacity(0.5))
