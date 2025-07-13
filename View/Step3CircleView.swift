@@ -8,7 +8,6 @@ struct Step3CircleView: View {
     @Bindable var faceAngleManager: FaceAngleManager
     @Binding var currentStep: Steps
     
-    @State private var currentScript: Step3Scripts = .leftGuide
     @State private var leftProgress: CGFloat = 0.0
     @State private var rightProgress: CGFloat = 0.0
     @State private var leftTimer: Timer? = nil
@@ -46,27 +45,22 @@ struct Step3CircleView: View {
                         .rotationEffect(.degrees(90))
                 )
             
-            switch currentScript {
-            case .leftGuide:
-                StepGuideCell(image: currentStep.rawValue + "_left", message: currentStep.description)
-            case .rightGuide:
-                StepGuideCell(image: currentStep.rawValue + "_right", message: currentStep.description)
-            }
+            StepGuideCell(image: currentStep.rawValue, message: currentStep.buttonText)
         }
         .onAppear {
-            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
+            speechManager.speak(text: currentStep.description, voice: userSettingsManager.voice)
         }
         .onChange(of: rightProgress) {
             if rightProgress == 1 {
                 currentStep = .finished
             }
         }
-        .onChange(of: currentScript) {
-            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
+        .onChange(of: currentStep) {
+            speechManager.speak(text: currentStep.description, voice: userSettingsManager.voice)
         }
         .onTapGesture {
             speechManager.stop()
-            speechManager.speak(text: currentScript.rawValue, voice: userSettingsManager.voice)
+            speechManager.speak(text: currentStep.description, voice: userSettingsManager.voice)
         }
         .onReceive(timer) { _ in
             step3Process()
@@ -96,7 +90,7 @@ private extension Step3CircleView {
                             leftTimer?.invalidate()
                             leftTimer = nil
                             isLeftCompleted = true
-                            currentScript = .rightGuide
+                            currentStep = .step3_right
                         }
                     }
                 }
@@ -131,19 +125,8 @@ private extension Step3CircleView {
     }
 }
 
-private extension Step3CircleView {
-    // An enum type containing the script to be spoken through SpeechManager in step 3.
-    enum Step3Scripts: String {
-        case leftGuide = "You have completed Step 2! Now move on to Step 3. Raise your left arm over your head, and gently pull your head toward your left shoulder to stretch the right side of your neck for 3 seconds."
-        case rightGuide = "Nice. Then, raise your right arm over your head, and gently pull your head toward your right shoulder to stretch the left side of your neck for 3 seconds."
-    }
-}
-
 #Preview {
-    Step3CircleView(
-        faceAngleManager: FaceAngleManager(),
-        currentStep: .constant(Steps.step3)
-    )
-    .environment(UserSettingsManager())
-    .environment(SpeechManager())
+    Step3CircleView(faceAngleManager: FaceAngleManager(), currentStep: .constant(Steps.step3_left))
+        .environment(UserSettingsManager())
+        .environment(SpeechManager())
 }

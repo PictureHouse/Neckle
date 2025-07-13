@@ -10,7 +10,6 @@ struct StepFinishedView : View {
     
     private let circleStroke: Double = 20
     
-    @State private var scripts: StepFinishedScripts = .finish
     @State private var scale: CGFloat = 1
     @State private var strokeColor: Color = .gray
     
@@ -20,10 +19,10 @@ struct StepFinishedView : View {
             .frame(width: 350, height: 350)
             .scaleEffect(scale)
             .overlay {
-                StepGuideCell(image: currentStep.rawValue, message: currentStep.description)
+                StepGuideCell(image: currentStep.rawValue, message: currentStep.buttonText)
             }
             .onAppear {
-                speechManager.speak(text: scripts.rawValue, voice: userSettingsManager.voice)
+                speechManager.speak(text: currentStep.description, voice: userSettingsManager.voice)
                 withAnimation(.linear(duration: 0.7)) {
                     scale = 0.8
                     strokeColor = .teal
@@ -33,13 +32,6 @@ struct StepFinishedView : View {
                 speechManager.stop()
                 mainButtonState = .play
             }
-    }
-}
-
-private extension StepFinishedView {
-    // An enum type containing the script to be spoken through SpeechManager in finish step.
-    enum StepFinishedScripts: String {
-        case finish = "You have completed all your neck exercises. Keep your neck healthy with simple neck exercises with Neckle. Have a nice day!"
     }
 }
 
