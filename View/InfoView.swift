@@ -41,7 +41,7 @@ struct InfoView: View {
                     Text("This app uses the motion sensor in AirPods to measure head movement and helps users exercise their neck with voice guidance through AirPods. Put on your AirPods and enjoy Neckle!")
                 }
                 .multilineTextAlignment(.leading)
-                .font(.system(size: 16))
+                .font(.system(size: 14))
             }
             .frame(minWidth: 300, maxWidth: 500)
             .scrollIndicators(.hidden)

@@ -9,7 +9,7 @@ struct SettingsMenuCell<T: CaseIterable & Identifiable & RawRepresentable & Hash
         VStack {
             HStack {
                 Text(title)
-                    .font(.system(size: 16, weight: .bold))
+                    .font(.system(size: 14, weight: .bold))
                 
                 Spacer()
                 

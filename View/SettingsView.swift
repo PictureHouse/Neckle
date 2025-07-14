@@ -11,7 +11,7 @@ struct SettingsView: View {
     @State private var intesitySettingsExpanded: Bool = false
     @State private var pitchIntensity: Double = 0.5
     @State private var yawIntensity: Double = 0.6
-    @State private var rollIntensity: Double = 0.6
+    @State private var rollIntensity: Double = 0.4
     @State private var showResetAlert: Bool = false
     
     let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
@@ -39,11 +39,15 @@ struct SettingsView: View {
             }
             
             DisclosureGroup(isExpanded: $intesitySettingsExpanded) {
-                Text("You can adjust the intensity according to the condition of your neck.")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.white.opacity(0.5))
-                    .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8)
+                HStack {
+                    Text("You can adjust the intensity according to the condition of your neck.")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.white.opacity(0.5))
+                        .multilineTextAlignment(.leading)
+                        .padding(.vertical, 8)
+                    
+                    Spacer()
+                }
                 
                 SettingsSliderCell(
                     title: "Up/Down Intensity",
@@ -69,8 +73,8 @@ struct SettingsView: View {
                 )
                 .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
             } label: {
-                Text("Neck Exercise Intensity Customization")
-                    .font(.system(size: 16, weight: .bold))
+                Text("Intensity Customization")
+                    .font(.system(size: 14, weight: .bold))
                     .padding(.vertical, 8)
             }
             
@@ -174,7 +178,7 @@ private extension SettingsView {
         audioDevice = .AirPods
         pitchIntensity = 0.5
         yawIntensity = 0.6
-        rollIntensity = 0.6
+        rollIntensity = 0.4
         hapticFeedback = true
     }
 }
