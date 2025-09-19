@@ -18,7 +18,7 @@ let package = Package(
             targets: ["AppModule"],
             bundleIdentifier: "io.github.picturehouse.Neckle",
             teamIdentifier: "WAC2RPX5HC",
-            displayVersion: "1.1.1",
+            displayVersion: "1.1.2",
             bundleVersion: "1",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.teal),
