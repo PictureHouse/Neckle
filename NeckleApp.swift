@@ -11,6 +11,7 @@ struct NeckleApp: App {
             MainView()
                 .environment(userSettingsManager)
                 .environment(speechManager)
+                .preferredColorScheme(.dark)
         }
     }
 }

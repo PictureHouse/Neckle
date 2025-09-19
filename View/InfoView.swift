@@ -5,9 +5,7 @@ struct InfoView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(spacing: 16) {
-            header
-            
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("About Neckle")
@@ -45,26 +43,29 @@ struct InfoView: View {
             }
             .frame(minWidth: 300, maxWidth: 500)
             .scrollIndicators(.hidden)
-        }
-        .padding(16)
-        .background(.black.opacity(0.95))
-        .foregroundStyle(.white)
-    }
-}
-
-private extension InfoView {
-    // Header of the information view.
-    var header: some View {
-        HStack(spacing: 16) {
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark.circle")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(.teal)
+            .padding(16)
+            .foregroundStyle(.white)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    if #available(iOS 26.0, *) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .frame(width: 24, height: 24)
+                                .foregroundStyle(.teal)
+                        }
+                    } else {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark.circle")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundStyle(.teal)
+                        }
+                    }
+                }
             }
         }
     }

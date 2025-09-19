@@ -84,7 +84,6 @@ struct SettingsView: View {
         }
         .padding(16)
         .foregroundStyle(.white)
-        .background(.black.opacity(0.95))
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Settings")
@@ -152,21 +151,37 @@ private extension SettingsView {
             
             Spacer()
             
-            Button {
-                userSettingsManager.sendFeedback(openURL: openURL)
-            } label: {
-                Circle()
-                    .fill(Color.teal)
-                    .frame(width: 64, height: 64)
-                    .overlay {
-                        VStack(spacing: 4) {
-                            Image(systemName: "envelope.fill")
-                                .font(.system(size: 18))
-                            
-                            Text("Feedback")
-                                .font(.system(size: 10))
-                        }
+            if #available(iOS 26.0, *) {
+                Button {
+                    userSettingsManager.sendFeedback(openURL: openURL)
+                } label: {
+                    VStack(spacing: 4) {
+                        Image(systemName: "envelope.fill")
+                            .font(.system(size: 18))
+                        
+                        Text("Feedback")
+                            .font(.system(size: 10))
                     }
+                }
+                .frame(width: 64, height: 64)
+                .glassEffect(.clear)
+            } else {
+                Button {
+                    userSettingsManager.sendFeedback(openURL: openURL)
+                } label: {
+                    Circle()
+                        .fill(Color.teal)
+                        .frame(width: 64, height: 64)
+                        .overlay {
+                            VStack(spacing: 4) {
+                                Image(systemName: "envelope.fill")
+                                    .font(.system(size: 18))
+                                
+                                Text("Feedback")
+                                    .font(.system(size: 10))
+                            }
+                        }
+                }
             }
         }
     }

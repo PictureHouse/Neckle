@@ -8,26 +8,45 @@ struct MainButton: View {
     
     var body: some View {
         VStack {
-            Button {
-                action()
-            } label: {
-                Circle()
-                    .frame(width: 80, height: 80)
-                    .foregroundStyle(state != .disabled ? .teal : .gray)
-                    .overlay {
-                        if state == .disabled {
-                            Image(systemName: type.description)
-                                .font(.system(size: 32))
-                                .foregroundStyle(.white)
-                        } else {
-                            Image(systemName: state.rawValue + ".fill")
-                                .font(.system(size: 32))
-                                .foregroundStyle(.white)
-                        }
+            if #available(iOS 26.0, *) {
+                Button {
+                    action()
+                } label: {
+                    if state == .disabled {
+                        Image(systemName: type.description)
+                            .font(.system(size: 32))
+                            .foregroundStyle(.white)
+                    } else {
+                        Image(systemName: state.rawValue + ".fill")
+                            .font(.system(size: 32))
+                            .foregroundStyle(.white)
                     }
+                }
+                .frame(width: 80, height: 80)
+                .glassEffect(state == .disabled ? .clear : .clear.tint(.teal))
+                .disabled(state == .disabled)
+            } else {
+                Button {
+                    action()
+                } label: {
+                    Circle()
+                        .frame(width: 80, height: 80)
+                        .foregroundStyle(state != .disabled ? .teal : .gray)
+                        .overlay {
+                            if state == .disabled {
+                                Image(systemName: type.description)
+                                    .font(.system(size: 32))
+                                    .foregroundStyle(.white)
+                            } else {
+                                Image(systemName: state.rawValue + ".fill")
+                                    .font(.system(size: 32))
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                }
+                .disabled(state == .disabled)
+                .padding(8)
             }
-            .disabled(state == .disabled)
-            .padding(8)
             
             Text(state == .disabled ? state.description + type.rawValue : state.description)
                 .font(.system(size: 12))

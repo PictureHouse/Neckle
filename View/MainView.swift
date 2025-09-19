@@ -13,9 +13,6 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                header
-                    .opacity(mainButtonState == .stop ? 0 : 1)
-                
                 Spacer()
                 
                 contents
@@ -35,7 +32,25 @@ struct MainView: View {
                 )
             }
             .padding(16)
-            .background(.black.opacity(0.95))
+            .toolbar {
+                if mainButtonState != .stop {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink {
+                            SettingsView()
+                        } label: {
+                            if #available(iOS 26.0, *) {
+                                Image(systemName: "gearshape")
+                                    .font(.system(size: 16))
+                                    .foregroundStyle(.teal)
+                            } else {
+                                Image(systemName: "gearshape")
+                                    .font(.system(size: 16))
+                                    .foregroundStyle(.teal)
+                            }
+                        }
+                    }
+                }
+            }
             .onAppear(perform: {
                 // Check if AirPods are connected when the view appears.
                 mainButtonState = bluetoothConnectionManager.isBluetoothConnected ? .play : .disabled
@@ -56,24 +71,6 @@ struct MainView: View {
 }
 
 private extension MainView {
-    // Header of the main view.
-    var header: some View {
-        HStack(spacing: 16) {
-            Spacer()
-            
-            NavigationLink {
-                SettingsView()
-            } label: {
-                Image(systemName: "gearshape")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(.teal)
-            }
-            .tint(.teal)
-            .navigationTitle("")
-        }
-    }
-    
     // Body of the main view that shows the main contents of the app.
     @ViewBuilder
     var contents: some View {
