@@ -6,27 +6,21 @@ struct SettingsMenuCell<T: CaseIterable & Identifiable & RawRepresentable & Hash
     @Binding var selection: T
     
     var body: some View {
-        VStack {
-            HStack {
-                Text(title)
-                    .font(.system(size: 14, weight: .bold))
-                
-                Spacer()
-                
-                Picker(title, selection: $selection) {
-                    ForEach(Array(T.allCases), id: \.self) { enumCase in
-                        Text(enumCase.rawValue)
-                            .font(.system(size: 16))
-                            .tag(enumCase)
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-            .padding(.bottom, 8)
+        HStack {
+            Text(title)
+                .font(.system(size: 14))
             
-            Divider()
+            Spacer()
+            
+            Picker("", selection: $selection) {
+                ForEach(Array(T.allCases), id: \.self) { enumCase in
+                    Text(enumCase.rawValue)
+                        .font(.system(size: 16))
+                        .tag(enumCase)
+                }
+            }
+            .pickerStyle(.menu)
         }
-        .padding(.vertical, 8)
     }
 }
 

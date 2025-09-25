@@ -6,17 +6,11 @@ struct SettingsToggleCell: View {
     @Binding var status: Bool
     
     var body: some View {
-        VStack {
-            Toggle(isOn: $status) {
-                Text(title)
-                    .font(.system(size: 14, weight: .bold))
-            }
-            .tint(.teal)
-            .padding(.bottom, 8)
-            
-            Divider()
+        Toggle(isOn: $status) {
+            Text(title)
+                .font(.system(size: 14))
         }
-        .padding(.vertical, 8)
+        .tint(.teal)
     }
 }
 

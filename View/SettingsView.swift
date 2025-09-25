@@ -18,71 +18,67 @@ struct SettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            SettingsMenuCell(
-                title: "Voice",
-                selection: $voice
-            )
-            .sensoryFeedback(.impact, trigger: hapticFeedback ? voice : nil)
-            
-            SettingsMenuCell(
-                title: "Audio Device",
-                selection: $audioDevice
-            )
-            .sensoryFeedback(.impact, trigger: hapticFeedback ? audioDevice : nil)
-            
-            // Haptic feedback is only supported on iPhone, so the haptic feedback settings are only visible on iPhone.
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                SettingsToggleCell(
-                    title: "Haptic Feedback",
-                    status: $hapticFeedback
-                )
-            }
-            
-            DisclosureGroup(isExpanded: $intesitySettingsExpanded) {
-                HStack {
-                    Text("You can adjust the intensity according to the condition of your neck.")
-                        .font(.system(size: 10))
-                        .foregroundStyle(.white.opacity(0.5))
-                        .multilineTextAlignment(.leading)
-                        .padding(.vertical, 8)
+            List {
+                Section(header: Text("Settings")) {
+                    SettingsMenuCell(
+                        title: "Voice",
+                        selection: $voice
+                    )
+                    .sensoryFeedback(.impact, trigger: hapticFeedback ? voice : nil)
                     
-                    Spacer()
+                    SettingsMenuCell(
+                        title: "Audio Device",
+                        selection: $audioDevice
+                    )
+                    .sensoryFeedback(.impact, trigger: hapticFeedback ? audioDevice : nil)
+                    
+                    // Haptic feedback is only supported on iPhone, so the haptic feedback settings are only visible on iPhone.
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        SettingsToggleCell(
+                            title: "Haptic Feedback",
+                            status: $hapticFeedback
+                        )
+                    }
                 }
                 
-                SettingsSliderCell(
-                    title: "Up/Down Intensity",
-                    minValue: 0.3,
-                    maxValue: 0.8,
-                    status: $pitchIntensity
-                )
-                .sensoryFeedback(.increase, trigger: hapticFeedback ? pitchIntensity : nil)
-                
-                SettingsSliderCell(
-                    title: "Left/Right Intensity",
-                    minValue: 0.3,
-                    maxValue: 0.8,
-                    status: $yawIntensity
-                )
-                .sensoryFeedback(.increase, trigger: hapticFeedback ? yawIntensity : nil)
-                
-                SettingsSliderCell(
-                    title: "Head Tilt Intensity",
-                    minValue: 0.3,
-                    maxValue: 0.8,
-                    status: $rollIntensity
-                )
-                .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
-            } label: {
-                Text("Intensity Customization")
-                    .font(.system(size: 14, weight: .bold))
-                    .padding(.vertical, 8)
+                Section(
+                    header: Text("Intensity Customization"),
+                    footer: Text("You can adjust the intensity according to the condition of your neck.")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.gray)
+                ){
+                    SettingsSliderCell(
+                        title: "Up/Down Intensity",
+                        minValue: 0.3,
+                        maxValue: 0.8,
+                        status: $pitchIntensity
+                    )
+                    .sensoryFeedback(.increase, trigger: hapticFeedback ? pitchIntensity : nil)
+                    
+                    SettingsSliderCell(
+                        title: "Left/Right Intensity",
+                        minValue: 0.3,
+                        maxValue: 0.8,
+                        status: $yawIntensity
+                    )
+                    .sensoryFeedback(.increase, trigger: hapticFeedback ? yawIntensity : nil)
+                    
+                    SettingsSliderCell(
+                        title: "Head Tilt Intensity",
+                        minValue: 0.3,
+                        maxValue: 0.8,
+                        status: $rollIntensity
+                    )
+                    .sensoryFeedback(.increase, trigger: hapticFeedback ? rollIntensity : nil)
+                }
             }
+            .listStyle(.insetGrouped)
             
             Spacer()
             
             footer
+                .padding(.horizontal, 16)
         }
-        .padding(16)
         .foregroundStyle(.white)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -147,7 +143,7 @@ private extension SettingsView {
                 Text("2025 Yune Cho")
                     .font(.system(size: 10))
             }
-            .foregroundStyle(.white.opacity(0.5))
+            .foregroundStyle(.gray)
             
             Spacer()
             
